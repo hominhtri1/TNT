@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
-import Geolocation from '@react-native-community/geolocation';
+import Geolocation from 'react-native-geolocation-service';
+import {PermissionsAndroid} from 'react-native';
 
 class myPosition{
 
@@ -59,6 +60,22 @@ static getSpeed(){
 
 }
 
+async function requestLocationPermission() {
+
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      {
+        title: 'Location Permission',
+        message:
+          'This app needs to access your location',
+        buttonNegative: 'Cancel',
+        buttonPositive: 'OK',
+      },
+    );
+
+}
+
+
 export default class HelloWorldApp extends Component {
 
 state = { longitude : null, latitute : null, altitude : null, accuracy : null, heading : null, speed : null, time : null, error : "No error", cycle : 0};
@@ -80,6 +97,9 @@ state = { longitude : null, latitute : null, altitude : null, accuracy : null, h
   }
 
 componentDidMount() {
+
+requestLocationPermission() 
+
 setInterval(()=>(
             Geolocation.getCurrentPosition(
             (position) => {
@@ -94,6 +114,7 @@ setInterval(()=>(
             },
             { enableHighAccuracy: true }
         )),1000);
+
 }
 
 }

@@ -24,6 +24,27 @@ var firebaseApp = firebase.initializeApp(firebaseConfig);
 
 var databaseRef = firebaseApp.database().ref();
 
+function getLocation() {
+
+  console.warn("This Happan");
+
+  databaseRef.on('value', (snapshot) =>
+  {
+    var items = [];
+
+    snapshot.forEach((child) =>
+    {
+      var latitude = child.child('latitude').val().toString();
+      var longitude = child.child('longitude').val().toString();
+
+      items.push({key: {lat: latitude, lon: longitude}});
+    })
+
+    this.setState({data: items});
+  })
+}
+
+/*
 export default class App extends React.Component
 {
   constructor(props)
@@ -97,7 +118,9 @@ export default class App extends React.Component
       </MapView>
     )
   };
-}
+}*/
+
+export {getLocation};
 
 const styles = StyleSheet.create(
 {

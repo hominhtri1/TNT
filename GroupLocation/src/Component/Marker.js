@@ -6,8 +6,8 @@ import { Avatar } from 'react-native-elements';
 export default class NewMarker extends Component {
 
     render() {
-        return(
-        <Marker
+      return(
+      <Marker
         key = {this.key}
         coordinate={this.props.coordinate}
         title="SOme thung title"

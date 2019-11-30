@@ -21,8 +21,8 @@ class FriendList extends Component {
             <FlatList 
                 style={styles.containner}
                 renderItem={this.renderItem}
-                data={this.props.data}
-            ></FlatList>
+                data={this.props.data}>
+            </FlatList>
         )
     }
 
@@ -37,11 +37,7 @@ const styles = StyleSheet.create({
     },
     item: {
         marginBottom: 10
-
-
     }
-
-
 })
 
 export default FriendList;

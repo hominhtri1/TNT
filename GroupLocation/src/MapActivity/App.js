@@ -61,12 +61,14 @@ class App extends Component {
           }}
         >
       
-        {markerList}
-      
-      
+          {markerList}
+
+          <Marker coordinate={{
+              latitude: 10.76291,
+              longitude: 106.67997}}
+              draggable={true}/>
         </MapView>
         <FriendList data={this.state.data} />
-
       </View>
     )
   }

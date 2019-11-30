@@ -2,9 +2,7 @@ import React, {Component} from 'react'
 import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer'
 import { SafeAreaView, ScrollView, View, Text, Image, StyleSheet } from 'react-native'
 import { createAppContainer } from 'react-navigation';
-import { Icon, Container, Content, Header, Body, Left} from 'native-base'
-//import Icon  from 'react-native-vector-icons/FontAwesome';
-//import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { Icon, Container, Content, Header, Body, Left, Right} from 'native-base'
 import App from './../MapActivity/App'
 
 class HomeScreen extends Component {
@@ -13,24 +11,28 @@ class HomeScreen extends Component {
         drawerLabel: 'Notifications',
         drawerIcon: ({ tintColor }) => (
           <Image
-            //source={require('./notif-icon.png')}
+            //source={require('./../../resource/Image/test.jpg')}
             style={[styles.icon, { tintColor: tintColor }]}
           />
         ),
     };
 
     render() {
-    return (
-        <Container>
-            <Header>
-                <Left>
-                    <Icon name="ios-menu"
-                        onPress={() => this.props.navigation.openDrawer()}/>    
-                </Left>
-            </Header>
-            <App/>
-        </Container>
-    )
+        return (
+            <Container>
+                <Header>
+                    <Left style={{flex:1}}>
+                        <Icon name="ios-menu"
+                            onPress={() => this.props.navigation.openDrawer()}/>    
+                    </Left>
+                    <Body style={{flex:1}}>
+                        <Text>Header</Text>
+                    </Body>
+                    <Right style={{flex:1}}/>
+                </Header>
+                <App/>
+            </Container>
+        )
     }
 }
 
@@ -56,7 +58,6 @@ const CustomDrawerContentComponent = (props) => {
                     />
                 </Body>
             </Header>
-
         </Container>
     )
 }
@@ -66,8 +67,7 @@ const AppDrawerNavigator = createDrawerNavigator(
         Home: HomeScreen
     },
     {
-        contentComponent: CustomDrawerComponent,
-        
+        contentComponent: CustomDrawerContentComponent,
     },
     
 )
@@ -80,8 +80,6 @@ class NavigationBar extends Component {
         return(
             <AppContainer/>
         )
-
-
     }
 
 }
@@ -91,10 +89,7 @@ const styles = StyleSheet.create({
         height: 150,
         width: 150,
         borderRadius: 75
-
     }
-
-
 })
 
 export default NavigationBar;

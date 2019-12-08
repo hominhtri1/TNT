@@ -31,7 +31,7 @@ class FriendList extends Component {
 const styles = StyleSheet.create({
     containner: {
         position: "absolute",
-        bottom: 10,
+        bottom: 0,
         left: 10,
         color: "#ff0c0c"
     },

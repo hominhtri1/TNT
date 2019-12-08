@@ -1,10 +1,12 @@
 import React, {Component} from 'react'
-import MapView, {Marker} from 'react-native-maps';
-import {Text, View, StyleSheet, Image} from 'react-native' 
+import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import {Text, View, StyleSheet, Image, Button, Dimensions} from 'react-native' 
 import {getLocation} from './../FireBase/App_Firebase_HMT'
 import NewMarker from './../Component/Marker'
 import FriendList from './../Component/FriendList'
+import BottomSheet from './../Component/BottomSheet'
 
+const {height} = Dimensions.get('window')
 
 class App extends Component {
 
@@ -21,6 +23,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    //this.refs.map.fitToElements(true);
     this.getLocation();
   }
 
@@ -49,10 +52,15 @@ class App extends Component {
     })
 
     return(
-      <View style={styles.view}>
+      <View style={mapContainerStyles}>
       
         <MapView
-          style = {styles.view}
+          ref="map"
+          style={styles.map}
+          showsUserLocation={true}
+          showsMyLocationButton={true}
+          showsCompass={true}
+          
           initialRegion={{
             latitude: 10.76291,
             longitude: 106.67997,
@@ -67,8 +75,12 @@ class App extends Component {
               latitude: 10.76291,
               longitude: 106.67997}}
               draggable={true}/>
-        </MapView>
-        <FriendList data={this.state.data} />
+
+          </MapView>
+
+          <BottomSheet />
+
+      
       </View>
     )
   }
@@ -76,11 +88,26 @@ class App extends Component {
 
 const styles = StyleSheet.create({
   view: {
-      flex: 1,
-      fontSize: 100
+    flex: 1,
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    resizeMode: 'cover',
 
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject
   }
 })
+
+const mapContainerStyles = StyleSheet.flatten({
+  ...StyleSheet.absoluteFillObject,
+          
+});
 
 
 

@@ -20,6 +20,7 @@ class HomeScreen extends Component {
     render() {
         return (
             <Container>
+                <App/>
                 <Header>
                     <Left style={{flex:1}}>
                         <Icon name="ios-menu"
@@ -28,9 +29,12 @@ class HomeScreen extends Component {
                     <Body style={{flex:1}}>
                         <Text>Header</Text>
                     </Body>
-                    <Right style={{flex:1}}/>
+                    <Right style={{flex:1}}>
+                    <Icon name="ios-chatboxes"
+                            onPress={() => this.props.navigation.openDrawer()}/>  
+                    </Right>
                 </Header>
-                <App/>
+                
             </Container>
         )
     }

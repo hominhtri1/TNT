@@ -1,28 +1,40 @@
 import React, {Component} from 'react'
-import {FlatList, StyleSheet, View, Text} from 'react-native'
+import {FlatList, StyleSheet, View, Text, Image} from 'react-native'
 import {Avatar} from 'react-native-elements'
 
 class FriendList extends Component {
 
     renderItem = ({item}) => {
         return(
-          <Avatar
-            containerStyle={styles.item}
-            size="large"
-            rounded
-            source={require("./../../resource/Image/test.jpg")}
-          />
+            
+            <View style={styles.itemContainer}>
+                
+                <Avatar
+                    containerStyle={styles.item}
+                    size="large"
+                    rounded
+                    source={require("./../../resource/Image/test.jpg")}
+                    />
+ 
+
+            </View>
+
+           
         )
 
     }
 
+
+
     render() {
         return(
-            <FlatList 
-                style={styles.containner}
-                renderItem={this.renderItem}
-                data={this.props.data}>
-            </FlatList>
+            
+                <FlatList 
+                    containerStyle={styles.containner}
+                    renderItem={this.renderItem}
+                    data={this.props.data + this.props.data + this.props.data}>
+                </FlatList>
+            
         )
     }
 
@@ -30,13 +42,16 @@ class FriendList extends Component {
 
 const styles = StyleSheet.create({
     containner: {
-        position: "absolute",
-        bottom: 0,
-        left: 10,
-        color: "#ff0c0c"
+        flexDirection: "column"
+        
     },
     item: {
         marginBottom: 10
+    },
+    itemContainer: {
+        padding: 10,
+        flex: 1,
+        color: "#f00"
     }
 })
 

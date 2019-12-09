@@ -1,7 +1,9 @@
 import React from 'react'
-import {Text, View, Dimensions} from 'react-native'
+import {Text, View, Dimensions, ScrollView} from 'react-native'
 
 import SlidingUpPanel from 'rn-sliding-up-panel'
+import FriendList from './FriendList'
+import {getLocation} from './../FireBase/App_Firebase_HMT'
 
 const {height} = Dimensions.get('window')
 
@@ -9,8 +11,7 @@ const styles = {
   container: {
     flex: 1,
     backgroundColor: '#f8f9fa',
-    alignItems: 'center',
-    justifyContent: 'center'
+    
   },
   panel: {
     flex: 1,
@@ -18,7 +19,7 @@ const styles = {
     position: 'relative'
   },
   panelHeader: {
-    height: 120,
+    height: 60,
     backgroundColor: '#b197fc',
     alignItems: 'center',
     justifyContent: 'center'
@@ -37,12 +38,31 @@ const styles = {
 }
 
 class BottomSheet extends React.Component {
+
+    constructor(props)
+  {
+    super(props);
+
+    this.state =
+    {
+      data: [{key: {lat: 8, lon: 100}}]
+    };
+
+    this.getLocation = getLocation.bind(this);
+  }
+
+  componentDidMount() {
+    //this.refs.map.fitToElements(true);
+    this.getLocation();
+  }
+
+
   render() {
     return (
-      
+        
         <SlidingUpPanel
           ref={c => (this._panel = c)}
-          draggableRange={{top: height / 1.75, bottom: 120}}
+          draggableRange={{top: height/1.5, bottom: 60}}
           animatedValue={this._draggedValue}
           showBackdrop={false}>
           <View style={styles.panel}>
@@ -50,11 +70,11 @@ class BottomSheet extends React.Component {
               <Text style={{color: '#FFF'}}>Bottom Sheet Peek</Text>
             </View>
             <View style={styles.container}>
-              <Text>Bottom Sheet Content</Text>
+                <FriendList data={this.state.data}/>
             </View>
           </View>
         </SlidingUpPanel>
-      
+   
     )
   }
 }

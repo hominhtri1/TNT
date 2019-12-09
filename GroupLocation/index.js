@@ -13,4 +13,4 @@ import Signin from './src/Login/src/pages/Signin'
 import Signup from './src/Login/src/pages/Signup'
 
 
-AppRegistry.registerComponent(appName, () => Signup);
+AppRegistry.registerComponent(appName, () => NavigationBar);

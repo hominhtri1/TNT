@@ -52,7 +52,6 @@ class BottomSheet extends React.Component {
   }
 
   componentDidMount() {
-    //this.refs.map.fitToElements(true);
     this.getLocation();
   }
 
@@ -70,7 +69,10 @@ class BottomSheet extends React.Component {
               <Text style={{color: '#FFF'}}>Bottom Sheet Peek</Text>
             </View>
             <View style={styles.container}>
-                <FriendList data={this.state.data}/>
+                <FriendList 
+                  data={this.state.data}
+                  hightlight={this.props.higltlight}
+                  />
             </View>
           </View>
         </SlidingUpPanel>

@@ -1,47 +1,106 @@
 import React, {Component} from 'react'
-import {ImageBackground, StyleSheet, View, Image} from 'react-native'
+import {ImageBackground, StyleSheet, View, Image,Text} from 'react-native'
 import {Marker} from 'react-native-maps'
 import { Avatar } from 'react-native-elements';
 import { Icon } from 'native-base'
 
+const testCoor = {latitude: 10.76291,
+  longitude: 106.67997}
+
 export default class NewMarker extends Component {
 
-    checkHightlight = () => {
-      return [
-        styles.transparentBorder,
-        this.props.isHightlight ? null : styles.transparentRedBorder,
-      ];
+    constructor(pros) {
+      super(pros);
+
+      this.state = {rotate: this.findAngel(this.props.HLCoordinate)} 
     }
+
+    // calculate between desination and current location
+    findAngel = (coordinate) => {
+      
+      return Math.PI/2 - Math.atan2(
+        this.props.coordinate.latitude - coordinate.latitude,
+        this.props.coordinate.longitude - coordinate.longitude
+      ).toString()
+      
+    }
+
+
+
+
+    checkHightlight = () => {
+      
+      return (
+        this.props.isHightlight ? [styles.transparentRedBorder,styles.transparentBorder] : null
+      )
+    }
+
+    componentWillReceiveProps(nextProps){
+      /*console.warn(this.nextProps)
+      if(this.props != nextProps){
+        this.setState({rotateAngel: '2'})
+      }*/
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+      //console.warn(prevProps)
+      if(this.props != prevProps){
+        
+        
+        this.setState({rotate: this.findAngel(this.props.HLCoordinate)}) 
+        //console.warn(this.state.rotate)
+
+      
+      }
+    }
+
+    rotateRender = () => {
+
+      return(
+          <View 
+            key={this.state.rotate}  
+            style={[
+              this.checkHightlight(),
+              styles.viewContainer,
+              {
+                transform: [{rotate: this.state.rotate}]
+              }
+            ]}>
+                  
+                <ImageBackground
+                  style={styles.avatarContainer}
+                  source={require('./../../../resource/Image/marker.png')}>
+                  <Avatar
+                      size={40}
+                      containerStyle={styles.avatar}
+                      rounded
+                      source={require("./../../../resource/Image/test.jpg")}
+                    />
+                
+                </ImageBackground>
+              
+              <View style={styles.triangle}/>
+        </View>
+      )
+
+    }
+
+
+
+    
 
     image = <Image source={require("./../../../resource/Image/test.jpg")} />
 
     render() {
+      
       return(
           <Marker
+             ref={c => (this.style = c)}
             key = {this.key}
             coordinate={this.props.coordinate}
             title="SOme thung title"
             flat={false}>
-              <View style={styles.viewContainer}>
-                <View style={this.checkHightlight()}>
-                  
-                    <ImageBackground
-                      style={styles.avatarContainer}
-                      source={require('./../../../resource/Image/marker.png')}>
-                      <Avatar
-                          size={40}
-                          containerStyle={styles.avatar}
-                          rounded
-                          source={require("./../../../resource/Image/test.jpg")}
-                        />
-                        
-                    </ImageBackground>
-                  </View>
-                  <View style={styles.triangle}/>
-
-                  
-  
-            </View>
+            {this.rotateRender()}
           </Marker>
         )
     }
@@ -53,7 +112,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    transform: [{ rotate: '90deg'}]
   },
   whiteBorder: {
     padding: 3,

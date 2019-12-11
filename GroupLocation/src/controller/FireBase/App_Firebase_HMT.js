@@ -31,16 +31,19 @@ function getLocation() {
   databaseRef.on('value', (snapshot) =>
   {
     var items = [];
+    idNumb = 0;
 
     snapshot.forEach((child) =>
     {
       var latitude = child.child('latitude').val().toString();
       var longitude = child.child('longitude').val().toString();
 
-      items.push({key: {lat: latitude, lon: longitude}});
+      items.push({id: idNumb, key: {lat: latitude, lon: longitude}, isHightlight: false});
+      idNumb+=1;
     })
 
     this.setState({data: items});
+    //console.warn(items)
   })
 }
 

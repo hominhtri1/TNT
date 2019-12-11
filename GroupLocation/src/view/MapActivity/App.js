@@ -16,15 +16,32 @@ class App extends Component {
 
     this.state =
     {
-      data: [{key: {lat: 8, lon: 100}}]
+      data: [{id: 0, key: {lat: 8, lon: 100}, isHightlight: false}],
+      locationCoor: {
+        latitude: 10.76291,
+        longitude: 106.67997}
     };
 
     this.getLocation = getLocation.bind(this);
   }
 
   componentDidMount() {
-    //this.refs.map.fitToElements(true);
+    this.refs.map.fitToElements(true);
     this.getLocation();
+    
+  }
+
+  setHightlight = (id) => {
+    
+    console.warn("Hightlight");
+    newData = this.state.data.map((data) => {
+      if (data.id == id) 
+        data.isHightlight = !data.isHightlight
+      return data
+    })
+
+    this.setState({data: newData})
+
   }
 
   render() {
@@ -32,10 +49,14 @@ class App extends Component {
     var markerList = []
     var i = 0;
     
+    console.warn(this.state.data)
+
     this.state.data.forEach((location) =>
     {
+      //console.warn(this.state.data)
       markerList.push(
         <NewMarker
+          isHightlight = {this.state.data[i].isHightlight}
           key = {i}
           coordinate =
           {
@@ -43,7 +64,8 @@ class App extends Component {
               latitude: parseFloat(location.key.lat),
               longitude: parseFloat(location.key.lon)
             }
-          }>
+          }
+          HLCoordinate={this.state.locationCoor}>
 
         </NewMarker>
       );
@@ -73,14 +95,15 @@ class App extends Component {
           
           {markerList}
 
-          <Marker coordinate={{
-              latitude: 10.76291,
-              longitude: 106.67997}}
-              draggable={true}/>
+          <Marker 
+              coordinate={this.state.locationCoor}
+              draggable={true}
+              onDragEnd={e => {this.setState({locationCoor: e.nativeEvent.coordinate})}}/>
 
           </MapView>
 
-          <BottomSheet />
+          <BottomSheet
+              higltlight={this.setHightlight} />
 
       
       </View>

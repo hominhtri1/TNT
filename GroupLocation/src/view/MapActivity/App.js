@@ -19,7 +19,9 @@ class App extends Component {
       data: [{id: 0, key: {lat: 8, lon: 100}, isHightlight: false}],
       locationCoor: {
         latitude: 10.76291,
-        longitude: 106.67997}
+        longitude: 106.67997
+      },
+      placeMarker: true
     };
 
     this.getLocation = getLocation.bind(this);
@@ -42,6 +44,18 @@ class App extends Component {
 
     this.setState({data: newData})
 
+  }
+
+  mapPress = (coor) => {
+
+    if (this.state.placeMarker) {
+      this.setState({locationCoor: coor})
+    }
+
+  }
+
+  toggleLocationButton = () => {
+    this.setState({placeMarker: !this.state.placeMarker})
   }
 
   render() {
@@ -78,12 +92,12 @@ class App extends Component {
       
         <MapView
           ref="map"
-         
+
           style={styles.map}
           showsUserLocation={true}
           showsMyLocationButton={true}
           showsCompass={true}
-          rotateEnabled={true}
+          rotateEnabled={false}
 
           initialRegion={{
             latitude: 10.76291,
@@ -91,6 +105,7 @@ class App extends Component {
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
+          onPress={e => {this.mapPress(e.nativeEvent.coordinate)}}
         >
           
           {markerList}
@@ -103,6 +118,7 @@ class App extends Component {
           </MapView>
 
           <BottomSheet
+              toggleLocationButton={this.toggleLocationButton}
               higltlight={this.setHightlight} />
 
       

@@ -33,7 +33,7 @@ class FriendList extends Component {
                 <FlatList 
                     containerStyle={styles.containner}
                     renderItem={this.renderItem}
-                    data={this.props.data}>
+                    data={this.props.data }>
                 </FlatList>
             
         )

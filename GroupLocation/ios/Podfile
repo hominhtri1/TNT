@@ -35,6 +35,14 @@ target 'GroupLocation' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+# when not using frameworks  we can do this instead of including the source files in our project (1/4):
+# pod 'react-native-maps', path: '../../'
+#	pod 'react-native-google-maps', path: '../../'  # <~~ if you need GoogleMaps support on iOS
+
+# when not using frameworks  we can remove this line (2/4):
+  pod 'GoogleMaps'  # <~~ remove this line if you do not want to support GoogleMaps on iOS
+  pod 'react-native-google-maps', :path => '../node_modules/react-native-maps'
+
   target 'GroupLocationTests' do
     inherit! :search_paths
     # Pods for testing

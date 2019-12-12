@@ -26,11 +26,9 @@ class BottomSheet extends React.Component {
     this.getLocation();
   }
 
-
+  // sliding panel for containning friend list
   render() {
     return (
-
-      
         <SlidingUpPanel
           ref={c => (this._panel = c)}
           draggableRange={{top: height/1.5, bottom: 120}}

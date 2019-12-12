@@ -19,6 +19,6 @@ import Group from './src/view/Admin/Group'
 import Listgroup from './src/view/Admin/Listgroup'
 //import Me from './src/Admin/Listgroup'
 import Admin from './src/view/Admin/Admin'
+import AppContainer from './src/view/Component/Navigation'
 
-
-AppRegistry.registerComponent(appName, () => NavigationBar);
+AppRegistry.registerComponent(appName, () => AppContainer);

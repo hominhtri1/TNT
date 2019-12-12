@@ -23,6 +23,7 @@ class ArButton extends React.Component {
         style={buttonStyles}
         shadowless
         textStyle={{ fontSize: 12, fontWeight: '700' }}
+        onPress={this.props.onPress}
         {...props}
       >
         {children}

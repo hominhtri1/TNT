@@ -1,11 +1,18 @@
 import React, {Component} from 'react'
 import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer'
-import { SafeAreaView, ScrollView, View, Text, Image, StyleSheet } from 'react-native'
+import { SafeAreaView, ScrollView, View, Text, Image, StyleSheet, Button } from 'react-native'
 import { createAppContainer } from 'react-navigation';
 import { Icon, Container, Content, Header, Body, Left, Right} from 'native-base'
 import App from './../MapActivity/App'
 
 class HomeScreen extends Component {
+
+    constructor(props) {
+        super(props)
+
+        props.add(this.setMarker)
+    }
+
 
     static navigationOptions = {
         drawerLabel: 'Notifications',
@@ -17,10 +24,21 @@ class HomeScreen extends Component {
         ),
     };
 
+    chatPress = () => {
+        console.warn('Chat'); this.props.navigation.navigate('Chat')
+    }
+
+    setMarker = () => {
+        this.app.setMarker()
+    }
+
     render() {
         return (
             <Container>
-                <App/>
+                <App 
+                    ref={nav => {
+                        this.app = nav;
+                      }}/>
                 <Header>
                     <Left style={{flex:1}}>
                         <Icon name="ios-menu"
@@ -31,9 +49,10 @@ class HomeScreen extends Component {
                     </Body>
                     <Right style={{flex:1}}>
                     <Icon name="ios-chatboxes"
-                            onPress={() => this.props.navigation.openDrawer()}/>  
+                            onPress={() => {this.chatPress()}}/>  
                     </Right>
                 </Header>
+                
                 
             </Container>
         )
@@ -52,16 +71,53 @@ const CustomDrawerComponent = (props) => {
 }
 
 const CustomDrawerContentComponent = (props) => {
+
+    signOut = () => {
+        props.navigation.navigate('SignIn')
+    }
+
+    proFile = () => {
+        props.navigation.navigate('MyProfile')
+    }
+
+    joinGroup = () => {
+        props.navigation.navigate('JoinGroup')
+    }
+
+    createGroup = () => {
+        props.navigation.navigate('CreateGroup')
+    }
+
+    removeLocation = () => {
+        
+    }
+
+
+
     return(
         <Container>
             <Header> 
                 <Body>
-                    <Image 
-                        style={styles.drawerImage}
-                        source={require('./../../../resource/Image/test.jpg')}
-                    />
+                   
                 </Body>
             </Header>
+            <Body>
+                <Button 
+                    title = "Profile"
+                    onPress = {() => {this.proFile()}} />
+                <Button 
+                    title = "Create Group"
+                    onPress = {() => {this.createGroup()}} />
+                <Button 
+                    title = "Join Group"
+                    onPress = {() => {this.joinGroup()}} />
+                    <Button 
+                    title = "Remove Location"
+                    onPress = {() => {this.removeLocation()}} />
+                <Button 
+                    title = "Log Out"
+                    onPress = {() => {this.signOut()}} />
+            </Body>
         </Container>
     )
 }
@@ -71,18 +127,18 @@ const AppDrawerNavigator = createDrawerNavigator(
         Home: HomeScreen
     },
     {
-        contentComponent: CustomDrawerContentComponent,
+        contentComponent: props => <CustomDrawerContentComponent {...props} />,
     },
     
 )
 
-const AppContainer = createAppContainer(AppDrawerNavigator);
+const AppContainers = createAppContainer(AppDrawerNavigator);
 
 class NavigationBar extends Component {
 
     render() {
         return(
-            <AppContainer/>
+            <AppContainers/>
         )
     }
 
@@ -96,5 +152,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default NavigationBar;
-
+export {NavigationBar, HomeScreen, AppContainers};

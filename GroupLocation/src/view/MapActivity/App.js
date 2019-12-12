@@ -8,6 +8,7 @@ import BottomSheet from './../Component/BottomSheet'
 
 const {height} = Dimensions.get('window')
 
+
 class App extends Component {
 
   constructor(props)
@@ -21,7 +22,8 @@ class App extends Component {
         latitude: 10.76291,
         longitude: 106.67997
       },
-      placeMarker: true
+      placeMarker: true,
+      visible: true
     };
 
     this.getLocation = getLocation.bind(this);
@@ -58,13 +60,15 @@ class App extends Component {
     this.setState({placeMarker: !this.state.placeMarker})
   }
 
+  setMarker = () => {
+    this.setState({visible: !this.state.visible})
+  }
+
   render() {
 
     var markerList = []
     var i = 0;
     
-    console.warn(this.state.data)
-
     this.state.data.forEach((location) =>
     {
       //console.warn(this.state.data)
@@ -111,6 +115,7 @@ class App extends Component {
           {markerList}
 
           <Marker 
+              visible={this.state.visible}
               coordinate={this.state.locationCoor}
               draggable={true}
               onDragEnd={e => {this.setState({locationCoor: e.nativeEvent.coordinate})}}/>

@@ -19,6 +19,22 @@ const {width, height} = Dimensions.get('screen');
 //import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class Signin extends Component {
+
+  signUp = () => {
+    //console.warn("Sign UP")
+    this.props.navigation.navigate('SignUp')
+  
+  }
+
+  signIn = () => {
+    //console.warn("Sign UP")
+    this.props.navigation.navigate('Map')
+  
+  }
+
+
+
+
   render() {
     return (
       <View>
@@ -71,7 +87,9 @@ export default class Signin extends Component {
             </Block>
           </Container>
           <Block middle>
-            <Button color="primary" style={styles.createButton}>
+            <Button 
+              onPress={() => {this.signIn()}}
+              color="primary" style={styles.createButton}>
               <Text bold size={14} color={argonTheme.COLORS.WHITE}>
                 SIGN IN
               </Text>
@@ -82,10 +100,13 @@ export default class Signin extends Component {
             row
             space="evenly"
             style={{marginTop: 20, paddingBottom: 24}}>
-            <Button small style={{backgroundColor: argonTheme.COLORS.INFO}}>
+            <Button 
+              onPress={() => {this.signUp()}}
+              small style={{backgroundColor: argonTheme.COLORS.INFO}}>
               Sign Up
             </Button>
-            <Button small style={{backgroundColor: argonTheme.COLORS.DEFAULT}}>
+            <Button 
+              small style={{backgroundColor: argonTheme.COLORS.DEFAULT}}>
               Skip
             </Button>
           </Block>

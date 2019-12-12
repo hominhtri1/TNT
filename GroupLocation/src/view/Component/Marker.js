@@ -85,10 +85,6 @@ export default class NewMarker extends Component {
 
     }
 
-
-
-    
-
     image = <Image source={require("./../../../resource/Image/test.jpg")} />
 
     render() {

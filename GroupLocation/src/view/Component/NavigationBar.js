@@ -8,10 +8,7 @@ import App from './../MapActivity/App'
 class HomeScreen extends Component {
 
     constructor(props) {
-        super(props)
-
-        
-        
+        super(props)     
     }
 
 

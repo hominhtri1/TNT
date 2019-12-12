@@ -16,7 +16,9 @@ class FriendList extends Component {
                     source={require("./../../../resource/Image/test.jpg")}
                     />
                 
-                <Button title="View Profile"/>
+                <Button 
+                    title="View Profile"
+                    onPress={() => {this.props.gotoFriendProfile()}}/>
                 <Button 
                     title="Hightlight"
                     onPress={() => {this.props.hightlight(item.id)}}

@@ -4,8 +4,10 @@ import {Marker} from 'react-native-maps'
 import { Avatar } from 'react-native-elements';
 import { Icon } from 'native-base'
 
-const testCoor = {latitude: 10.76291,
-  longitude: 106.67997}
+const testCoor = {
+  latitude: 10.76291,
+  longitude: 106.67997
+}
 
 export default class NewMarker extends Component {
 

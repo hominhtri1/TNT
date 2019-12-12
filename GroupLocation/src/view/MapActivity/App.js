@@ -56,12 +56,32 @@ class App extends Component {
 
   }
 
+  // make location button work or not work
   toggleLocationButton = () => {
     this.setState({placeMarker: !this.state.placeMarker})
   }
 
+  // remove or add location marker
   setMarker = () => {
+    console.warn("Trigger")
     this.setState({visible: !this.state.visible})
+  }
+
+  gotoFriendProfile = () => {
+    this.props.navigation.navigate("FriendProfile")
+  }
+
+  checkLocation = () => {
+    if (this.state.visible) {
+      return(
+        <Marker 
+            visible={this.state.visible}
+            coordinate={this.state.locationCoor}
+            draggable={true}
+            onDragEnd={e => {this.setState({locationCoor: e.nativeEvent.coordinate})}}/>
+      )
+    }
+    else return null
   }
 
   render() {
@@ -111,20 +131,17 @@ class App extends Component {
           }}
           onPress={e => {this.mapPress(e.nativeEvent.coordinate)}}
         >
-          
+          {this.checkLocation()}
           {markerList}
 
-          <Marker 
-              visible={this.state.visible}
-              coordinate={this.state.locationCoor}
-              draggable={true}
-              onDragEnd={e => {this.setState({locationCoor: e.nativeEvent.coordinate})}}/>
+          
 
           </MapView>
 
           <BottomSheet
               toggleLocationButton={this.toggleLocationButton}
-              higltlight={this.setHightlight} />
+              higltlight={this.setHightlight}
+              gotoFriendProfile={this.props.gotoFriendProfile} />
 
       
       </View>

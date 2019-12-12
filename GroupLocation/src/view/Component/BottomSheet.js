@@ -46,6 +46,7 @@ class BottomSheet extends React.Component {
                 <FriendList 
                   data={this.state.data}
                   hightlight={this.props.higltlight}
+                  gotoFriendProfile={this.props.gotoFriendProfile}
                   />
             </View>
           </View>

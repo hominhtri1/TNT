@@ -10,7 +10,8 @@ class HomeScreen extends Component {
     constructor(props) {
         super(props)
 
-        props.add(this.setMarker)
+        
+        
     }
 
 
@@ -32,17 +33,32 @@ class HomeScreen extends Component {
         this.app.setMarker()
     }
 
+    gotoFriendProfile = () => {
+        this.props.navigation.navigate('FriendProfile')
+    }
+
+    componentDidMount() {
+        //console.warn(this.app.setMarker)
+        
+        this.props.navigation.setParams({ name: this.app.setMarker });
+        console.warn(this.props.navigation.state.params)
+    }
+
     render() {
         return (
             <Container>
                 <App 
                     ref={nav => {
                         this.app = nav;
-                      }}/>
+                      }}
+                    gotoFriendProfile={this.gotoFriendProfile}/>
                 <Header>
                     <Left style={{flex:1}}>
                         <Icon name="ios-menu"
-                            onPress={() => this.props.navigation.openDrawer()}/>    
+                            onPress={() => 
+                                this.props.navigation.openDrawer({name: 'Lucy'})
+                                //this.props.navigation.navigate( 'contentComponent', { test: 'titi' })
+                        }/>    
                     </Left>
                     <Body style={{flex:1}}>
                         <Text>Header</Text>
@@ -89,7 +105,8 @@ const CustomDrawerContentComponent = (props) => {
     }
 
     removeLocation = () => {
-        
+        //console.warn(props.navigation.state.params)
+        props.navigation.state.routes[0]['params']['name']()
     }
 
 

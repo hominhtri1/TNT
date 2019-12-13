@@ -10,47 +10,30 @@ const {height,width} = Dimensions.get('window')
 
 class BottomSheet extends React.Component {
 
-    constructor(props)
-  {
-    super(props);
-
-    this.state =
-    {
-      data: [{key: {lat: 8, lon: 100}}]
-    };
-
-    this.getLocation = getLocation.bind(this);
-  }
-
-  componentDidMount() {
-    this.getLocation();
-  }
-
   // sliding panel for containning friend list
   render() {
     return (
-        <SlidingUpPanel
+      <SlidingUpPanel
           ref={c => (this._panel = c)}
-          draggableRange={{top: height/1.5, bottom: 120}}
+          draggableRange={{top: height/1.5, bottom: 180}}
           animatedValue={this._draggedValue}
           showBackdrop={false}>
           <View style={styles.panel}>
-            
             <TouchableOpacity 
               onPress={() => {this.props.toggleLocationButton()}}
-              style={styles.locationButton} title="Test"/>
+              style={styles.toggleLocationButton} title="Test"/>
+            <TouchableOpacity 
+              onPress={() => {this.props.setLocationButton()}}
+              style={styles.setLocationButton} title="Test"/>
             <View style={styles.panelHeader}>
               <Text style={{color: '#FFF'}}>Bottom Sheet Peek</Text>
             </View>
             <View style={styles.container}>
-                <FriendList 
-                  data={this.state.data}
-                  hightlight={this.props.higltlight}
-                  gotoFriendProfile={this.props.gotoFriendProfile}
-                  />
+                {this.props.children}
             </View>
           </View>
-        </SlidingUpPanel>
+      </SlidingUpPanel>
+     
     )
   }
 }
@@ -83,19 +66,23 @@ const styles = {
     borderRadius: 24,
     zIndex: 1
   },
-  locationButton: {
+  toggleLocationButton: {
     width: 60,  
     height: 60,   
     borderRadius: 30,            
     backgroundColor: '#ee6e73',   
     position: 'relative',
     left: width - 80,
-    bottom: 20                   
-    
-
-
-
-
+    bottom: 20               
+  },
+  setLocationButton: {
+    width: 60,  
+    height: 60,   
+    borderRadius: 30,            
+    backgroundColor: '#0017ff',   
+    position: 'relative',
+    left: width - 80,
+    bottom: 10
   }
 }
 

@@ -2,14 +2,17 @@ import React, {Component} from 'react'
 import MapView, {Marker, PROVIDER_GOOGLE, UrlTile} from 'react-native-maps';
 import {Text, View, StyleSheet, Image, Button, Dimensions} from 'react-native' 
 import {getLocation} from '../../controller/FireBase/App_Firebase_HMT'
-import NewMarker from './../Component/Marker'
+import NewMarker from '../Component/NewMarker'
 import FriendList from './../Component/FriendList'
 import BottomSheet from './../Component/BottomSheet'
+import { Icon, Container, Content, Header, Body, Left, Right} from 'native-base'
+
+import { createAppContainer } from 'react-navigation';
+import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer'
 
 const {height} = Dimensions.get('window')
 
-
-class App extends Component {
+class MapViews extends Component {
 
   constructor(props)
   {
@@ -32,6 +35,7 @@ class App extends Component {
   componentDidMount() {
     this.refs.map.fitToElements(true);
     this.getLocation();
+    this.props.navigation.setParams({ increaseCount: this._increaseCount });
     
   }
 
@@ -45,25 +49,21 @@ class App extends Component {
     })
 
     this.setState({data: newData})
-
   }
 
   mapPress = (coor) => {
 
-    if (this.state.placeMarker) {
+    if (this.state.placeMarker && this.state.visible) {
       this.setState({locationCoor: coor})
     }
 
   }
 
-  // make location button work or not work
   toggleLocationButton = () => {
     this.setState({placeMarker: !this.state.placeMarker})
   }
 
-  // remove or add location marker
-  setMarker = () => {
-    console.warn("Trigger")
+  setLocationButton = () => {
     this.setState({visible: !this.state.visible})
   }
 
@@ -140,8 +140,16 @@ class App extends Component {
 
           <BottomSheet
               toggleLocationButton={this.toggleLocationButton}
-              higltlight={this.setHightlight}
-              gotoFriendProfile={this.props.gotoFriendProfile} />
+              setLocationButton={this.setLocationButton}
+              >
+              <FriendList 
+                  data={this.state.data}
+                  setHightlight={this.setHightlight}
+                  gotoFriendProfile={this.props.gotoFriendProfile}
+                  {...this.props}
+                />
+
+          </BottomSheet>
 
       
       </View>
@@ -172,7 +180,4 @@ const mapContainerStyles = StyleSheet.flatten({
           
 });
 
-
-
-
-export default App;
+export default MapViews;

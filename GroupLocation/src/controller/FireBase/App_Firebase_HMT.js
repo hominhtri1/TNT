@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import * as firebase from 'firebase';
 import MapView from 'react-native-maps';
-import NewMarker from '../../view/Component/Marker';
+//import NewMarker from '../../view/Component/NewMarker';
 //import MapViewDirections from 'react-native-maps-directions';
 
 const origin = {latitude: 37.3318456, longitude: -122.0296002};

@@ -3,24 +3,13 @@ import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer'
 import { SafeAreaView, ScrollView, View, Text, Image, StyleSheet, Button } from 'react-native'
 import { createAppContainer } from 'react-navigation';
 import { Icon, Container, Content, Header, Body, Left, Right} from 'native-base'
-import App from './../MapActivity/App'
+import App from './MapActivity/App'
 
 class HomeScreen extends Component {
 
     constructor(props) {
         super(props)     
     }
-
-
-    static navigationOptions = {
-        drawerLabel: 'Notifications',
-        drawerIcon: ({ tintColor }) => (
-          <Image
-            //source={require('./../../resource/Image/test.jpg')}
-            style={[styles.icon, { tintColor: tintColor }]}
-          />
-        ),
-    };
 
     chatPress = () => {
         console.warn('Chat'); this.props.navigation.navigate('Chat')
@@ -48,12 +37,13 @@ class HomeScreen extends Component {
                     ref={nav => {
                         this.app = nav;
                       }}
-                    gotoFriendProfile={this.gotoFriendProfile}/>
+                    gotoFriendProfile={this.gotoFriendProfile}
+                    {...this.props}/>
                 <Header>
                     <Left style={{flex:1}}>
                         <Icon name="ios-menu"
                             onPress={() => 
-                                this.props.navigation.openDrawer({name: 'Lucy'})
+                                this.props.navigation.openDrawer()
                                 //this.props.navigation.navigate( 'contentComponent', { test: 'titi' })
                         }/>    
                     </Left>

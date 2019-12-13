@@ -1,43 +1,39 @@
 import React, {Component} from 'react'
 import {FlatList, StyleSheet, View, Text, Image, Button} from 'react-native'
 import {Avatar} from 'react-native-elements'
+import memberListController from './../../controller/MemberListController'
 
 class FriendList extends Component {
 
+    constructor(props) {
+        super(props)
+    }
+
+
     renderItem = ({item}) => {
-        return(
-            
-            <View style={styles.itemContainer}>
-                
+        return(   
+            <View style={styles.itemContainer}>    
                 <Avatar
                     containerStyle={styles.item}
                     size="large"
                     rounded
-                    source={require("./../../../resource/Image/test.jpg")}
-                    />
-                
+                    source={require("./../../../resource/Image/test.jpg")}/>
                 <Button 
                     title="View Profile"
                     onPress={() => {this.props.gotoFriendProfile()}}/>
                 <Button 
                     title="Hightlight"
-                    onPress={() => {this.props.hightlight(item.id)}}
-                    />
-
+                    onPress={() => {this.props.setHightlight(item.id)}}/>
             </View>
-
         )
     }
 
     render() {
         return(
-            
-                <FlatList 
-                    containerStyle={styles.containner}
-                    renderItem={this.renderItem}
-                    data={this.props.data }>
-                </FlatList>
-            
+            <FlatList 
+                containerStyle={styles.containner}
+                renderItem={this.renderItem}
+                data={this.props.data } />        
         )
     }
 }

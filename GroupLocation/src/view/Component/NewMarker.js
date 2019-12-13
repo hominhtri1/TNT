@@ -27,9 +27,6 @@ export default class NewMarker extends Component {
       
     }
 
-
-
-
     checkHightlight = () => {
       
       return (
@@ -37,22 +34,10 @@ export default class NewMarker extends Component {
       )
     }
 
-    componentWillReceiveProps(nextProps){
-      /*console.warn(this.nextProps)
-      if(this.props != nextProps){
-        this.setState({rotateAngel: '2'})
-      }*/
-    }
-
     componentDidUpdate(prevProps, prevState) {
       //console.warn(prevProps)
       if(this.props != prevProps){
-        
-        
         this.setState({rotate: this.findAngel(this.props.HLCoordinate)}) 
-        //console.warn(this.state.rotate)
-
-      
       }
     }
 

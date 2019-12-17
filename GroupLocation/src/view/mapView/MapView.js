@@ -5,10 +5,8 @@ import {getLocation} from '../../controller/FireBase/App_Firebase_HMT'
 import NewMarker from '../Component/NewMarker'
 import FriendList from './../Component/FriendList'
 import BottomSheet from './../Component/BottomSheet'
-import { Icon, Container, Content, Header, Body, Left, Right} from 'native-base'
-
-import { createAppContainer } from 'react-navigation';
-import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer'
+import mapController from './../../controller/MapController'
+import MapController from './../../controller/MapController';
 
 const {height} = Dimensions.get('window')
 
@@ -30,6 +28,7 @@ class MapViews extends Component {
     };
 
     this.getLocation = getLocation.bind(this);
+    this.mapController = new MapController(this)
   }
 
   componentDidMount() {
@@ -65,6 +64,8 @@ class MapViews extends Component {
 
   setLocationButton = () => {
     this.setState({visible: !this.state.visible})
+    //console.warn("Visible");
+    //this.mapController.setMarker()
   }
 
   gotoFriendProfile = () => {
@@ -134,20 +135,17 @@ class MapViews extends Component {
           {this.checkLocation()}
           {markerList}
 
-          
+        </MapView>
 
-          </MapView>
+        <BottomSheet
+            toggleLocationButton={this.toggleLocationButton}
+            setLocationButton={this.mapController.setMarker}>
 
-          <BottomSheet
-              toggleLocationButton={this.toggleLocationButton}
-              setLocationButton={this.setLocationButton}
-              >
-              <FriendList 
-                  data={this.state.data}
-                  setHightlight={this.setHightlight}
-                  gotoFriendProfile={this.props.gotoFriendProfile}
-                  {...this.props}
-                />
+            <FriendList 
+                data={this.state.data}
+                setHightlight={this.setHightlight}
+                gotoFriendProfile={this.props.gotoFriendProfile}
+                {...this.props}/>
 
           </BottomSheet>
 

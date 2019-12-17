@@ -8,6 +8,9 @@ import FriendProfile from './Login/src/pages/FriendProfile'
 import Chat from './Admin/Chat'
 import Listgroup from './Admin/Listgroup'
 import MapContainers from './mapView/MapViewContainer'
+import CreateGroup from './Admin/CreateGroup'
+import JoinGroup from './Admin/JoinGroup'
+
 
 const AppNavigator = createStackNavigator({
     
@@ -27,10 +30,10 @@ const AppNavigator = createStackNavigator({
         screen: Chat
     },
     CreateGroup: {
-        screen: Listgroup
+        screen: CreateGroup
     },
     JoinGroup: {
-        screen: Listgroup
+        screen: JoinGroup
     },
     Map: {
       screen: MapContainers,

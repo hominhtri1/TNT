@@ -1,10 +1,6 @@
-
-
 class MemberListController {
 
-    /*gotoFriendProfile(props) {
-        props.navigation.navigate('FriendProfile');
-    }*/
+        
     
 
 

@@ -25,14 +25,14 @@ class HomeScreen extends Component {
                     {...this.props}/>
                 <Header>
                     <Left style={{flex:1}}>
-                        <Icon name="ios-menu"
+                        <Icon name="menu"
                               onPress={() => this.props.navigation.openDrawer({dataRef: databaseRef, personKey: key})}/>    
                     </Left>
                     <Body style={{flex:1}}>
                         <Text>Map</Text>
                     </Body>
                     <Right style={{flex:1}}>
-                    <Icon name="ios-chatboxes"
+                    <Icon name="md-chatboxes"
                           onPress={() => {this.gotoChat()}}/>  
                     </Right>
                 </Header>

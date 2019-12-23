@@ -4,7 +4,8 @@ import {
   ImageBackground,
   Dimensions,
   StatusBar,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Alert
 } from "react-native";
 import { Block, Checkbox, Text, theme } from "galio-framework";
 
@@ -19,17 +20,23 @@ class Signup extends React.Component {
 
   signUp()
   {
+    if (this.state.user == "" || this.state.pass == "") {
+      Alert.alert("Username or Password empty !!");
+      return;
+    }
+
     var found = false;
 
     this.state.data.forEach(person =>
     {
-      if (person.key.user == this.state.user)
+      if (person.user == this.state.user)
         found = true;
     })
 
     if (found)
     {
       console.warn("Duplicate username");
+      Alert.alert("Account existed. Please enter new username !!");
       return;
     }
 
@@ -41,11 +48,15 @@ class Signup extends React.Component {
     });
 
     console.warn('Signed up');
+    Alert.alert("Signed up completely!!");
   };
 
   constructor(props)
   {
     super(props);
+
+    databaseRef = this.props.navigation.getParam('dataRef', null);
+    //var key = this.props.navigation.getParam('personKey', "");
 
     this.state =
     {
@@ -58,8 +69,8 @@ class Signup extends React.Component {
         pass: ""
       }],
 
-      user: "txt",
-      pass: "txt"
+      user: "",
+      pass: ""
     };
   }
 
@@ -153,6 +164,8 @@ class Signup extends React.Component {
                             style={styles.inputIcons}
                           />
                         }
+
+                        onChangeText = {(text) => {this.setState({user: text});}}
                       />
                     </Block>
                     <Block width={width * 0.8} style={{ marginBottom: 15 }}>
@@ -192,11 +205,16 @@ class Signup extends React.Component {
                             style={styles.inputIcons}
                           />
                         }
+
+                        onChangeText = {(text) => {this.setState({pass: text})}}
                       />
                     </Block>
                   
                     <Block middle>
-                      <Button color="primary" style={styles.createButton}>
+                      <Button 
+                        color="primary" 
+                        style={styles.createButton}
+                        onPress={() => this.signUp()}>
                         <Text bold size={14} color={argonTheme.COLORS.WHITE}>
                           CREATE ACCOUNT
                         </Text>

@@ -40,7 +40,7 @@ export default class Signin extends Component
 {
   signUp()
   {
-    var found = false;
+    /*var found = false;
 
     this.state.data.forEach(person =>
     {
@@ -73,7 +73,8 @@ export default class Signin extends Component
     })
     */
 
-    // this.props.navigation.navigate('SignUp')
+    this.props.navigation.navigate('SignUp', {dataRef: databaseRef})
+    //this.props.navigation.navigate('Map', , personKey: key});
   };
 
   signIn()

@@ -26,7 +26,7 @@ class BottomSheet extends React.Component {
               onPress={() => {this.props.setLocationButton()}}
               style={styles.setLocationButton} title="Test"/>
             <View style={styles.panelHeader}>
-              <Text style={{color: '#FFF'}}>Bottom Sheet Peek</Text>
+              <Text style={{color: '#FFF'}}>Friend List</Text>
             </View>
             <View style={styles.container}>
                 {this.props.children}

@@ -13,7 +13,86 @@ import { Images, argonTheme } from "../../constants";
 
 const { width, height } = Dimensions.get("screen");
 
+import * as firebase from 'firebase';
+
 class Signup extends React.Component {
+
+  signUp()
+  {
+    var found = false;
+
+    this.state.data.forEach(person =>
+    {
+      if (person.key.user == this.state.user)
+        found = true;
+    })
+
+    if (found)
+    {
+      console.warn("Duplicate username");
+      return;
+    }
+
+    databaseRef.child('user').push().set(
+    {
+      group: "",
+      password: this.state.pass,
+      username: this.state.user
+    });
+
+    console.warn('Signed up');
+  };
+
+  constructor(props)
+  {
+    super(props);
+
+    this.state =
+    {
+      // data: [{key: {user: "HMT", pass: "123", lat: 8, lon: 100}}],
+
+      data: [
+      {
+        key: "",
+        user: "",
+        pass: ""
+      }],
+
+      user: "txt",
+      pass: "txt"
+    };
+  }
+
+  componentDidMount()
+  {
+    databaseRef.child('user').on('value', (snapshot) =>
+    {
+      var items = [];
+
+      snapshot.forEach((child) =>
+      {
+        var childKey = child.key;
+        var username = child.child('username').val().toString();
+        var password = child.child('password').val().toString();
+        // var latitude = child.child('latitude').val().toString();
+        // var longitude = child.child('longitude').val().toString();
+
+        // items.push({key: {user: username, pass: password, lat: latitude, lon: longitude}});
+
+        items.push(
+        {
+          key: childKey, 
+          user: username,
+          pass: password
+        });
+      })
+
+      this.setState({data: items});
+    })
+  }
+
+
+
   render() {
     return (
       <Block flex middle>

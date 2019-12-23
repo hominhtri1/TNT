@@ -7,7 +7,7 @@ import MapViews from './MapView'
 import mapContainerController from './../../controller/MapContainerController'
 
 class HomeScreen extends Component {
-
+    
     gotoChat = () => {
         //console.warn('Chat'); 
         this.props.navigation.navigate('Chat')
@@ -26,7 +26,7 @@ class HomeScreen extends Component {
                 <Header>
                     <Left style={{flex:1}}>
                         <Icon name="ios-menu"
-                              onPress={() => this.props.navigation.openDrawer()}/>    
+                              onPress={() => this.props.navigation.openDrawer({dataRef: databaseRef, personKey: key})}/>    
                     </Left>
                     <Body style={{flex:1}}>
                         <Text>Map</Text>
@@ -43,6 +43,9 @@ class HomeScreen extends Component {
 
 const CustomDrawerContentComponent = (props) => {
 
+    databaseRef = props.navigation.getParam('dataRef', null);
+    key = props.navigation.getParam('personKey', "");
+
     gotoMyProfile = () => {
         props.navigation.navigate('MyProfile')
     }
@@ -53,6 +56,7 @@ const CustomDrawerContentComponent = (props) => {
 
     gotoJoinGroup = () => {
         props.navigation.navigate('JoinGroup')
+        props.navigation.navigate('JoinGroup', {dataRef: databaseRef, personKey: key});
     }
 
     gotoLogIn = () => {

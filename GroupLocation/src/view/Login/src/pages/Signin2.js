@@ -10,6 +10,7 @@ import {
   TextInput,
   ScrollView,
   Image,
+  Alert,
 } from 'react-native';
 import {Button, Icon, Input} from '../../components';
 import {Images, argonTheme} from '../../constants';
@@ -90,9 +91,12 @@ export default class Signin extends Component
     })
 
     if (found)
-      this.props.navigation.navigate('Listgroup', {dataRef: databaseRef, personKey: key});
-    else
-      console.warn("Wrong username/password");
+      this.props.navigation.navigate('Map', {dataRef: databaseRef, personKey: key});
+    else 
+    {
+      Alert.alert("Wrong username or password")
+      //console.warn("Wrong username/password");
+    }
   };
 
   constructor(props)
@@ -140,6 +144,7 @@ export default class Signin extends Component
       })
 
       this.setState({data: items});
+      console.warn(this.state.data)
     })
   }
 

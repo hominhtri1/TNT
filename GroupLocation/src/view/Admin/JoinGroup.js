@@ -8,11 +8,92 @@ import { Button, Select, Icon, Input, Header, Switch } from "../Login/components
 
 const { width } = Dimensions.get("screen");
 
-class Listgroup extends React.Component {
-  state = {
-    "switch-1": true,
-    "switch-2": false
-  };
+var databaseRef = null;
+
+class Listgroup extends React.Component
+{
+  //state = {
+  //  "switch-1": true,
+  //  "switch-2": false
+  //};
+
+  joinGroup()
+  {
+    this.state.data.forEach(group =>
+    {
+      var found = false;
+
+      if (group.key == this.state.code)
+      {
+        found = true;
+        
+        var updates = {};
+
+        updates['/user/' + this.state.personKey + '/group'] = group.key;
+
+        var newMemberKey = databaseRef.child('group').child(group.key).child('member').push().key;
+        updates['/group/' + group.key + '/member/' + newMemberKey] = this.state.personKey;
+
+        databaseRef.update(updates);
+      }
+
+      if (found)
+        console.warn('Joined');
+      else
+        console.warn('Wrong code');
+    })
+  }
+
+  constructor(props)
+  {
+    super(props);
+
+    databaseRef = this.props.navigation.getParam('dataRef', null);
+    var key = this.props.navigation.getParam('personKey', "");
+
+    this.state =
+    {
+      data: [
+      {
+        key: "",
+        name: "",
+        member: []
+      }],
+      code: "txt",
+      personKey: key
+    };
+  }
+
+  componentDidMount()
+  {
+    databaseRef.child('group').on('value', (snapshot) =>
+    {
+      var items = [];
+
+      snapshot.forEach((child1) =>
+      {
+        var childKey = child1.key;
+        var groupName = child1.child('name').val().toString();
+
+        var groupMembers = [];
+
+        child1.child('member').forEach((child2) =>
+        {
+          var memberCode = child2.val().toString();
+          groupMembers.push(memberCode);
+        })
+
+        items.push(
+        {
+          key: childKey,
+          name: groupName,
+          member: groupMembers
+        });
+      })
+
+      this.setState({data: items});
+    })
+  }
 
   toggleSwitch = switchId =>
     this.setState({ [switchId]: !this.state[switchId] });
@@ -21,12 +102,35 @@ class Listgroup extends React.Component {
     return (
       <Block flex>
         <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+              <Input
+                right
+                placeholder = "Input your new group code"
+
+                style = 
+                {{
+                  borderColor: argonTheme.COLORS.INFO,
+                  borderRadius: 4,
+                  backgroundColor: "#fff"
+                }}
+
+                iconContent = {<Block/>}
+                onChangeText = {(text) => {this.setState({code: text});}}
+              />
+        </Block>
+        <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
           <Block center>
             <Button color="default" style={styles.button}>
-                JOIN
+                CREATE
             </Button>
           </Block>
           <Block center>
+            <Button
+              color = "secondary"
+              textStyle = {{ color: "black", fontSize: 12, fontWeight: "700" }}
+              style = {styles.button}
+              onPress = {() => {this.joinGroup()}}>
+                JOIN
+            </Button>
             <Text bold size={20} style={styles.title}>
               Avaiable Group
             </Text>
@@ -138,12 +242,12 @@ class Listgroup extends React.Component {
     return (
       <Block flex style={styles.group}>
           <Text bold size={30} style={styles.title}>
-              JOIN GROUP
+              YOUR GROUP
           </Text>
           <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
               <Input
                 right
-                placeholder="Input group code"
+                placeholder="Pick a name for your group"
                 style={{
                   borderColor: argonTheme.COLORS.INFO,
                   borderRadius: 4,
@@ -155,6 +259,7 @@ class Listgroup extends React.Component {
       </Block>
     );
   };
+
   renderSwitches = () => {
     return (
       <Block flex style={styles.group}>
@@ -185,6 +290,7 @@ class Listgroup extends React.Component {
       </Block>
     );
   };
+
   renderSocial = () => {
     return (
       <Block flex style={styles.group}>
@@ -237,7 +343,6 @@ class Listgroup extends React.Component {
       </Block>
     );
   };
-
 
   render() {
     return (

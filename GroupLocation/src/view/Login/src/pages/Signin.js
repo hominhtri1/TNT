@@ -31,10 +31,7 @@ export default class Signin extends Component {
     this.props.navigation.navigate('Map')
   
   }
-
-
-
-
+  
   render() {
     return (
       <View>

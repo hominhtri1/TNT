@@ -1,16 +1,16 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import Signin from './Login/src/pages/Signin'
+import Signin from './Login/src/pages/Signin2'
 import Singup from './Login/src/pages/Signup'
 import MyProfile from './Login/src/pages/MyProfile'
 import FriendProfile from './Login/src/pages/FriendProfile'
 import Chat from './Admin/Chat'
-import Listgroup from './Admin/Listgroup'
+import Listgroup from './Admin/Listgroup2'
 import MapContainers from './mapView/MapViewContainer'
 import CreateGroup from './Admin/CreateGroup'
 import JoinGroup from './Admin/JoinGroup'
-
+//import Listgt
 
 const AppNavigator = createStackNavigator({
     
@@ -33,7 +33,7 @@ const AppNavigator = createStackNavigator({
         screen: CreateGroup
     },
     JoinGroup: {
-        screen: JoinGroup
+        screen: Listgroup
     },
     Map: {
       screen: MapContainers,
@@ -41,6 +41,9 @@ const AppNavigator = createStackNavigator({
       navigationOptions: {
         header: null
       }
+    },
+    Listgroup: {
+        screen: Listgroup
     }
 
 

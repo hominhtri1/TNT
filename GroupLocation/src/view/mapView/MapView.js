@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import MapView, {Marker, PROVIDER_GOOGLE, UrlTile} from 'react-native-maps';
 import {Text, View, StyleSheet, Image, Button, Dimensions} from 'react-native' 
-import {getLocation} from '../../controller/FireBase/App_Firebase_HMT'
+//import {getLocation} from '../../controller/FireBase/App_Firebase_HMT'
 import NewMarker from '../Component/NewMarker'
 import FriendList from './../Component/FriendList'
 import BottomSheet from './../Component/BottomSheet'
@@ -16,6 +16,9 @@ class MapViews extends Component {
   {
     super(props);
 
+    //databaseRef = this.props.navigation.getParam('dataRef', null);
+    //var key = this.props.navigation.getParam('personKey', "");
+
     this.state =
     {
       data: [{id: 0, key: {lat: 8, lon: 100}, isHightlight: false}],
@@ -27,14 +30,14 @@ class MapViews extends Component {
       visible: true
     };
 
-    this.getLocation = getLocation.bind(this);
+    //this.getLocation = getLocation.bind(this);
     this.mapController = new MapController(this)
   }
 
   componentDidMount() {
     this.refs.map.fitToElements(true);
-    this.getLocation();
-    this.props.navigation.setParams({ increaseCount: this._increaseCount });
+    //this.getLocation();
+    //this.props.navigation.setParams({ increaseCount: this._increaseCount });
     
   }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import * as firebase from 'firebase';
 import MapView from 'react-native-maps';
@@ -121,7 +121,7 @@ export default class App extends React.Component
       </MapView>
     )
   };
-}*/
+}
 
 export {getLocation};
 
@@ -145,4 +145,4 @@ const styles = StyleSheet.create(
   {
     flex: 1
   }
-});
+});*/

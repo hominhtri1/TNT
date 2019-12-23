@@ -2,7 +2,7 @@
  * @format
  */
 
-import {AppRegistry} from 'react-native';
+/*import {AppRegistry} from 'react-native';
 // import App from './src/view/MapActivity/App'
 import {name as appName} from './app.json';
 // import App from './src/FireBase/App_Firebase_HMT'
@@ -21,4 +21,4 @@ import {name as appName} from './app.json';
 // import Admin from './src/view/Admin/Admin'
 import AppContainer from './src/view/Component/Navigation'
 
-AppRegistry.registerComponent(appName, () => AppContainer);
+AppRegistry.registerComponent(appName, () => AppContainer);*/

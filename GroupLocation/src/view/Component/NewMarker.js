@@ -57,6 +57,7 @@ export default class NewMarker extends Component {
                 <ImageBackground
                   style={styles.avatarContainer}
                   source={require('./../../../resource/Image/marker.png')}>
+
                   <Avatar
                       size={40}
                       containerStyle={styles.avatar}
@@ -67,6 +68,7 @@ export default class NewMarker extends Component {
                 </ImageBackground>
               
               <View style={styles.triangle}/>
+              
         </View>
       )
 

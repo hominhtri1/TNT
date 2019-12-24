@@ -151,8 +151,7 @@ class MapViews extends Component {
                 {...this.props}/>
 
           </BottomSheet>
-
-      
+          
       </View>
     )
   }

@@ -5,6 +5,7 @@ import { createAppContainer } from 'react-navigation';
 import { Icon, Container, Content, Header, Body, Left, Right} from 'native-base'
 import MapViews from './MapView'
 import mapContainerController from './../../controller/MapContainerController'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 class HomeScreen extends Component {
     
@@ -20,22 +21,30 @@ class HomeScreen extends Component {
     render() {
         return (
             <Container>
+
                 <MapViews 
                     gotoFriendProfile={() => this.gotoFriendProfile()}
                     {...this.props}/>
+
                 <Header>
+
                     <Left style={{flex:1}}>
                         <Icon name="menu"
                               onPress={() => this.props.navigation.openDrawer({dataRef: databaseRef, personKey: key})}/>    
                     </Left>
+
                     <Body style={{flex:1}}>
                         <Text>Map</Text>
                     </Body>
+
                     <Right style={{flex:1}}>
-                    <Icon name="md-chatboxes"
-                          onPress={() => {this.gotoChat()}}/>  
+
+                        <Icon name="md-chatboxes"
+                              onPress={() => {this.gotoChat()}}/>  
                     </Right>
+                    
                 </Header>
+
             </Container>
         )
     }
@@ -68,23 +77,62 @@ const CustomDrawerContentComponent = (props) => {
             <Header>
                 <Body/>
             </Header>
-            <Body>
-                <Button 
-                    title = "Profile"
-                    onPress = {() => {this.gotoMyProfile()}} />
-                <Button 
-                    title = "Create Group"
-                    onPress = {() => {this.gotoCreateGroup()}} />
-                <Button 
-                    title = "Join Group"
-                    onPress = {() => {this.gotoJoinGroup()}} />
-                <Button 
-                    title = "Log Out"
-                    onPress = {() => {this.gotoLogIn()}} />
-            </Body>
+            <Content 
+                contentContainerStyle={{ flexDirection: 'column' }}
+                bounces={false}>
+
+                <TouchableOpacity 
+                    style={styles.button}
+                    onPress = {() => {this.gotoMyProfile()}}>
+
+                    <Text style={styles.text}>Profile</Text>
+
+                </TouchableOpacity>
+
+                <TouchableOpacity 
+                    style={styles.button}
+                    onPress = {() => {this.gotoCreateGroup()}}>
+
+                    <Text style={styles.text}>Create group</Text>
+
+                </TouchableOpacity>
+
+                <TouchableOpacity 
+                    style={styles.button}
+                    onPress = {() => {this.gotoJoinGroup()}}>
+
+                    <Text style={styles.text}>Join group</Text>
+
+                </TouchableOpacity>
+
+                <TouchableOpacity 
+                    style={styles.button}
+                    onPress = {() => {this.gotoLogIn()}}>
+
+                    <Text style={styles.text}>Log out</Text>
+
+                </TouchableOpacity>
+                
+            </Content>
         </Container>
     )
 }
+
+const styles = StyleSheet.create({
+    button: {
+        padding: 10,
+        //backgroundColor: "#ede3e3",
+        borderWidth: 0.25,
+        paddingLeft: 20
+    },
+    text: {
+        fontSize: 20
+    }
+
+
+
+})
+
 
 const AppDrawerNavigator = createDrawerNavigator(
     {

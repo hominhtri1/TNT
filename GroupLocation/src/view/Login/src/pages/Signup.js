@@ -5,7 +5,8 @@ import {
   Dimensions,
   StatusBar,
   KeyboardAvoidingView,
-  Alert
+  Alert,
+  Platform
 } from "react-native";
 import { Block, Checkbox, Text, theme } from "galio-framework";
 
@@ -20,8 +21,13 @@ class Signup extends React.Component {
 
   signUp()
   {
-    if (this.state.user == "" || this.state.pass == "") {
-      Alert.alert("Username or Password empty !!");
+    if (this.state.user == "") {
+      Alert.alert("Username is empty !!");
+      return;
+    }
+
+    if (this.state.pass == "") {
+      Alert.alert("Password is empty !!");
       return;
     }
 
@@ -35,7 +41,7 @@ class Signup extends React.Component {
 
     if (found)
     {
-      console.warn("Duplicate username");
+      //console.warn("Duplicate username");
       Alert.alert("Account existed. Please enter new username !!");
       return;
     }
@@ -106,6 +112,14 @@ class Signup extends React.Component {
 
   render() {
     return (
+
+      <KeyboardAvoidingView
+                    behavior={Platform.OS === "ios" ? "padding" : null}
+                    style={{ flex: 1 }}
+                    //keyboardVerticalOffset={64}
+                    behavior="padding"
+                    enabled
+                  >
       <Block flex middle>
         <StatusBar hidden />
         <ImageBackground
@@ -142,11 +156,7 @@ class Signup extends React.Component {
                   </Text>
                 </Block>
                 <Block flex center>
-                  <KeyboardAvoidingView
-                    style={{ flex: 1 }}
-                    behavior="padding"
-                    enabled
-                  >
+                  
                     <Block width={width * 0.8} style={{ marginBottom: 15 }}>
                     <Text bold size={20} color={argonTheme.COLORS.SUCCESS}>
                           {" "}
@@ -220,13 +230,14 @@ class Signup extends React.Component {
                         </Text>
                       </Button>
                     </Block>
-                  </KeyboardAvoidingView>
+                  
                 </Block>
               </Block>
             </Block>
           </Block>
         </ImageBackground>
       </Block>
+      </KeyboardAvoidingView>
     );
   }
 }

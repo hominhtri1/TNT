@@ -13,12 +13,25 @@ import JoinGroup from './Admin/JoinGroup'
 //import Listgt
 
 const AppNavigator = createStackNavigator({
+
+    Map: {
+        screen: MapContainers,
+        
+        navigationOptions: {
+          header: null
+        }
+      },
     
     SignIn: {
         screen: Signin,
+
+        navigationOptions: {
+            header: null
+        }
     },
     SignUp: {
-        screen: Singup
+        screen: Singup,
+
     },
     MyProfile: {
         screen: MyProfile
@@ -35,13 +48,7 @@ const AppNavigator = createStackNavigator({
     JoinGroup: {
         screen: Listgroup
     },
-    Map: {
-      screen: MapContainers,
-      
-      navigationOptions: {
-        header: null
-      }
-    },
+    
     Listgroup: {
         screen: Listgroup
     }

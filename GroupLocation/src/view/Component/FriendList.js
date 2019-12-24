@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {FlatList, StyleSheet, View, Text, Image, Button} from 'react-native'
 import {Avatar} from 'react-native-elements'
 import memberListController from './../../controller/MemberListController'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 class FriendList extends Component {
 
@@ -12,18 +13,46 @@ class FriendList extends Component {
 
     renderItem = ({item}) => {
         return(   
-            <View style={styles.itemContainer}>    
+            <View style={styles.itemContainer}>   
+
                 <Avatar
                     containerStyle={styles.item}
                     size="large"
-                    rounded
+                    
                     source={require("./../../../resource/Image/test.jpg")}/>
-                <Button 
+
+                <View style={{
+                    flex: 1,
+                    flexDirection: 'row-reverse',
+                    alignSelf: 'center'
+                }}>
+
+                <TouchableOpacity 
                     title="View Profile"
-                    onPress={() => {this.props.gotoFriendProfile()}}/>
-                <Button 
-                    title="Hightlight"
-                    onPress={() => {this.props.setHightlight(item.id)}}/>
+                    style={styles.button}
+                    onPress={() => {this.props.setHightlight(item.id)}}>
+                    
+                    <Text
+                        style={styles.text}>
+                        Hightlight
+                    </Text>
+                    
+                </TouchableOpacity>
+                
+                <TouchableOpacity 
+                    title="View Profile"
+                    style={styles.button}
+                    onPress={() => {this.props.gotoFriendProfile()}}>
+                    
+                    <Text
+                        style={styles.text}>
+                        View Profile
+                    </Text>
+
+                </TouchableOpacity>
+
+                </View>
+
             </View>
         )
     }
@@ -44,14 +73,26 @@ const styles = StyleSheet.create({
         
     },
     item: {
-        marginBottom: 10
+       // marginBottom: 10
     },
     itemContainer: {
         padding: 10,
-        flex: 1,
-        color: "#f00",
-        borderWidth: 1,
-        flexDirection: "row",
+        
+        backgroundColor: "#dae3e0",
+        borderWidth: 0.3,
+        
+        flexDirection: 'row',
+        
+    },
+    button: {
+        padding: 5,
+        backgroundColor: "#818c88",
+        marginLeft: 10
+        
+    },
+    text: {
+        fontSize: 20,
+        color: "#fff"
     }
 })
 

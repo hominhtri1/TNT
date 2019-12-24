@@ -194,6 +194,7 @@ export default class Signin extends Component
 
             <Block width = {width * 0.8} style = {{marginBottom: 15}}>
               <Input
+                password
                 borderless
                 placeholder = "Password"
 

@@ -14,8 +14,13 @@ export default class NewMarker extends Component {
     constructor(pros) {
       super(pros);
 
-      this.state = {rotate: this.findAngel(this.props.HLCoordinate)} 
+      this.state = {rotate: 0} 
     }
+
+    componentDidMount() {
+      this.setState({rotate: this.findAngel(this.props.HLCoordinate)})
+    }
+
 
     // calculate between desination and current location
     findAngel = (coordinate) => {
@@ -43,15 +48,15 @@ export default class NewMarker extends Component {
 
     rotateRender = () => {
 
+     
+
       return(
           <View 
             key={this.state.rotate}  
             style={[
               this.checkHightlight(),
-              styles.viewContainer,
-              {
-                transform: [{rotate: this.state.rotate}]
-              }
+              styles.viewContainer, 
+              {transform: [{rotate: this.state.rotate}]}
             ]}>
                   
                 <ImageBackground
@@ -77,10 +82,12 @@ export default class NewMarker extends Component {
     image = <Image source={require("./../../../resource/Image/test.jpg")} />
 
     render() {
+
+      //console.warn(this.props.coordinate)
       
       return(
           <Marker
-             ref={c => (this.style = c)}
+            ref={c => (this.style = c)}
             key = {this.key}
             coordinate={this.props.coordinate}
             title="SOme thung title"

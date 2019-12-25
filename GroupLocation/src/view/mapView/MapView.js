@@ -7,6 +7,9 @@ import FriendList from './../Component/FriendList'
 import BottomSheet from './../Component/BottomSheet'
 import mapController from './../../controller/MapController'
 import MapController from './../../controller/MapController';
+import Geolocation from '@react-native-community/geolocation';
+import {databaseRef} from './../../controller/Firebase_Config'
+
 
 const {height} = Dimensions.get('window')
 
@@ -17,12 +20,17 @@ class MapViews extends Component {
     super(props);
 
     //databaseRef = this.props.navigation.getParam('dataRef', null);
-    //var key = this.props.navigation.getParam('personKey', "");
+    var key = this.props.key;
+    console.warn("Key " + key)
 
     this.state =
     {
       data: [{id: 0, key: {lat: 8, lon: 100}, isHightlight: false}],
       locationCoor: {
+        latitude: 10.76291,
+        longitude: 106.67997
+      },
+      userCoor: {
         latitude: 10.76291,
         longitude: 106.67997
       },
@@ -38,8 +46,72 @@ class MapViews extends Component {
     this.refs.map.fitToElements(true);
     //this.getLocation();
     //this.props.navigation.setParams({ increaseCount: this._increaseCount });
+    this.getFriendList()
+
+    Geolocation.getCurrentPosition(info => {
+      this.setState({userCoor: {
+        latitude: info.coords.latitude,
+        longitude: info.coords.longitude
+      }})
+      this.userPositionConfig()
+    })
+
+
+    Geolocation.watchPosition(info => {
+      this.setState({userCoor: {
+        latitude: info.coords.latitude,
+        longitude: info.coords.longitude
+      }})
+      this.userPositionConfig()
+    })  
+
+  }
+
+  userPositionConfig = () => {
+
+    databaseRef.child('user').child(key).child('latitude').set(this.state.userCoor.latitude)
+    databaseRef.child('user').child(key).child('longitude').set(this.state.userCoor.longitude);
+  }
+
+  getFriendList = () => {
+
+    if (this.props.group == "") return;
+    
+    groupKey = this.props.group
+    databaseRef.child('user').on('value', (snapshot) => {
+
+      var items = [];
+
+      snapshot.forEach((child) =>
+      {
+        if (child.child('grouplist').val().toString().includes(groupKey) && child.key != key) {
+        
+          var childKey = child.key;
+          var latitude = child.child('latitude').val().toString();
+          var longitude = child.child('longitude').val().toString();
+
+          items.push(
+          {
+            id: childKey, 
+            key: {
+              lat: latitude, 
+              lon: longitude
+            }, 
+            isHightlight: false
+          });
+        }
+      })
+      
+
+      this.setState({data: items});
+
+
+    })
+
     
   }
+
+
 
   setHightlight = (id) => {
     
@@ -71,8 +143,9 @@ class MapViews extends Component {
     //this.mapController.setMarker()
   }
 
-  gotoFriendProfile = () => {
-    this.props.navigation.navigate("FriendProfile")
+  gotoFriendProfile = (id) => {
+    console.warn(id)
+    this.props.navigation.navigate("FriendProfile", {friendId: id})
   }
 
   checkLocation = () => {
@@ -100,6 +173,7 @@ class MapViews extends Component {
         <NewMarker
           isHightlight = {this.state.data[i].isHightlight}
           key = {i}
+          visible = {this.state.visible}
           coordinate =
           {
             {
@@ -122,8 +196,8 @@ class MapViews extends Component {
           ref="map"
 
           style={styles.map}
-          showsUserLocation={true}
-          showsMyLocationButton={true}
+          //showsUserLocation={true}
+          //showsMyLocationButton={true}
           showsCompass={true}
           rotateEnabled={false}
 
@@ -135,9 +209,18 @@ class MapViews extends Component {
           }}
           onPress={e => {this.mapPress(e.nativeEvent.coordinate)}}
         >
-          {this.checkLocation()}
-          {markerList}
 
+          <NewMarker
+            isHightlight = {false}
+            key = {100}
+            visible = {this.state.visible}
+            coordinate = {this.state.userCoor}
+            HLCoordinate = {this.state.locationCoor} />
+
+          {this.checkLocation()}
+
+          {markerList}
+          
         </MapView>
 
         <BottomSheet

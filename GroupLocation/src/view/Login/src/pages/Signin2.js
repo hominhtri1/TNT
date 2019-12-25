@@ -17,9 +17,11 @@ import {Images, argonTheme} from '../../constants';
 import {green} from 'ansi-colors';
 const {width, height} = Dimensions.get('screen');
 
+import {databaseRef} from './../../../../controller/Firebase_Config'
+
 //import Icon from 'react-native-vector-icons/FontAwesome';
 
-import * as firebase from 'firebase';
+/*import * as firebase from 'firebase';
 
 var firebaseConfig =
 {
@@ -34,7 +36,7 @@ var firebaseConfig =
 
 var firebaseApp = firebase.initializeApp(firebaseConfig);
 
-var databaseRef = firebaseApp.database().ref();
+var databaseRef = firebaseApp.database().ref();*/
 
 export default class Signin extends Component
 {
@@ -81,6 +83,7 @@ export default class Signin extends Component
   {
     var found = false;
     var key = "";
+    var group = "";
 
     this.state.data.forEach(person =>
     {
@@ -88,11 +91,12 @@ export default class Signin extends Component
       {
         found = true;
         key = person.key;
+        group = person.group;
       }
     })
 
     if (found)
-      this.props.navigation.navigate('Map', {dataRef: databaseRef, personKey: key});
+      this.props.navigation.navigate('Map', {dataRef: databaseRef, personKey: key, groupKey: group});
     else 
     {
       Alert.alert("Wrong username or password")
@@ -128,9 +132,12 @@ export default class Signin extends Component
 
       snapshot.forEach((child) =>
       {
+        //console.warn(child)
+        
         var childKey = child.key;
         var username = child.child('username').val().toString();
         var password = child.child('password').val().toString();
+        var group = child.child('group').val().toString();
         // var latitude = child.child('latitude').val().toString();
         // var longitude = child.child('longitude').val().toString();
 
@@ -140,12 +147,13 @@ export default class Signin extends Component
         {
           key: childKey, 
           user: username,
-          pass: password
+          pass: password,
+          group: group
         });
       })
 
       this.setState({data: items});
-      console.warn(this.state.data)
+      //console.warn(this.state.data)
     })
   }
 

@@ -14,13 +14,7 @@ import JoinGroup from './Admin/JoinGroup'
 
 const AppNavigator = createStackNavigator({
 
-    Map: {
-        screen: MapContainers,
-        
-        navigationOptions: {
-          header: null
-        }
-      },
+    
     
     SignIn: {
         screen: Signin,
@@ -29,6 +23,13 @@ const AppNavigator = createStackNavigator({
             header: null
         }
     },
+    Map: {
+        screen: MapContainers,
+        
+        navigationOptions: {
+          header: null
+        }
+      },
     SignUp: {
         screen: Singup,
 

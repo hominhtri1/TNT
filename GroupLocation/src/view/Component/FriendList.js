@@ -12,6 +12,7 @@ class FriendList extends Component {
 
 
     renderItem = ({item}) => {
+        console.warn(item.id)
         return(   
             <View style={styles.itemContainer}>   
 
@@ -42,7 +43,7 @@ class FriendList extends Component {
                 <TouchableOpacity 
                     title="View Profile"
                     style={styles.button}
-                    onPress={() => {this.props.gotoFriendProfile()}}>
+                    onPress={() => {this.props.gotoFriendProfile(item.id)}}>
                     
                     <Text
                         style={styles.text}>
@@ -58,6 +59,8 @@ class FriendList extends Component {
     }
 
     render() {
+
+        
         return(
             <FlatList 
                 containerStyle={styles.containner}

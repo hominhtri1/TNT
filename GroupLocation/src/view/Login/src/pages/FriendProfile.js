@@ -12,11 +12,47 @@ import { Images, argonTheme } from "../../constants";
 import { Button, Select, Icon, Input, Header, Switch } from "../../components";
 import { HeaderHeight } from "../../constants/utils";
 
+import {databaseRef} from './../../../../controller/Firebase_Config'
+
+
 const { width, height } = Dimensions.get("screen");
+
 
 const thumbMeasure = (width - 48 - 32) / 3;
 
 class FriendProfile extends React.Component {
+
+  constructor(props) {
+
+    super(props)
+
+    
+    this.state = {name: ""}
+
+    //console.warn(friendID)
+  }
+  
+  componentDidMount() {
+
+    
+    
+    var friendID = this.props.navigation.getParam('friendId', "")
+    databaseRef.child("user").child(friendID).on('value', (snapshot) => {
+
+      this.setState({name: snapshot.child("name").val().toString()})
+    })
+
+    
+
+    
+
+
+
+  }
+
+  
+
+
   render() {
     return (
       <Block flex style={styles.profile}>
@@ -96,7 +132,7 @@ class FriendProfile extends React.Component {
                 <Block flex>
                   <Block middle style={styles.nameInfo}>
                     <Text bold size={28} color="#32325D">
-                      Hồ Trí Minh
+                      {this.state.name}
                     </Text>
                     <Text size={16} color="#32325D" style={{ marginTop: 10 }}>
                       01675994743

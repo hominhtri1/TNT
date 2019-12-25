@@ -49,6 +49,9 @@ class Signup extends React.Component {
     databaseRef.child('user').push().set(
     {
       group: "",
+      latitude: "",
+      longitude: "",
+      grouplist: "",
       password: this.state.pass,
       username: this.state.user
     });

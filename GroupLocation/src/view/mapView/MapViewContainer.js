@@ -7,23 +7,31 @@ import MapViews from './MapView'
 import mapContainerController from './../../controller/MapContainerController'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
+import {databaseRef} from './../../controller/Firebase_Config'
+
 class HomeScreen extends Component {
-    
+
+
     gotoChat = () => {
         //console.warn('Chat'); 
         this.props.navigation.navigate('Chat')
     }
 
-    gotoFriendProfile = () => {
-        this.props.navigation.navigate('FriendProfile')
+    gotoFriendProfile = (id) => {
+        console.warn("ID" + id)
+        this.props.navigation.navigate('FriendProfile',{friendId: id})
     }
 
     render() {
+        //console.warn(this.props.navigation.getParam('personKey', ""))
+
         return (
             <Container>
 
                 <MapViews 
-                    gotoFriendProfile={() => this.gotoFriendProfile()}
+                    gotoFriendProfile={this.gotoFriendProfile}
+                    key={this.props.navigation.getParam('personKey', "")}
+                    group={this.props.navigation.getParam('groupKey', "")}
                     {...this.props}/>
 
                 <Header>
@@ -52,7 +60,7 @@ class HomeScreen extends Component {
 
 const CustomDrawerContentComponent = (props) => {
 
-    databaseRef = props.navigation.getParam('dataRef', null);
+    //databaseRef = props.navigation.getParam('dataRef', null);
     key = props.navigation.getParam('personKey', "");
 
     gotoMyProfile = () => {

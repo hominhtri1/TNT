@@ -10,7 +10,6 @@ import MapController from './../../controller/MapController';
 import Geolocation from '@react-native-community/geolocation';
 import {databaseRef} from './../../controller/Firebase_Config'
 
-
 const {height} = Dimensions.get('window')
 
 class MapViews extends Component {
@@ -35,7 +34,8 @@ class MapViews extends Component {
         longitude: 106.67997
       },
       placeMarker: true,
-      visible: true
+      visible: true,
+      groupList: []
     };
 
     //this.getLocation = getLocation.bind(this);
@@ -74,6 +74,8 @@ class MapViews extends Component {
   }
 
   getFriendList = () => {
+
+    console.warn("Get friend");
 
     if (this.props.group == "") return;
     

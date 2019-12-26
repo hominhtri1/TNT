@@ -6,6 +6,8 @@ import { Block, Text, Button as GaButton, theme } from "galio-framework";
 import { argonTheme, tabs } from "../Login/constants";
 import { Button, Select, Icon, Input, Header, Switch } from "../Login/components";
 
+import {NavigationActions} from 'react-navigation'
+
 const { width } = Dimensions.get("screen");
 
 var databaseRef = null;
@@ -34,6 +36,14 @@ class Listgroup extends React.Component
         var newMemberKey = databaseRef.child('group').child(group.key).child('member').push().key;
         updates['/group/' + group.key + '/member/' + newMemberKey] = this.state.personKey;
 
+        var value = ""
+        databaseRef.child('user').child(this.state.personKey).child('grouplist').on('value', snapshot => {
+          value =  snapshot.val().toString()
+        });
+
+        databaseRef.child('user').child(this.state.personKey).child('grouplist').set(value + ',' + group.key)
+        
+
         databaseRef.update(updates);
       }
 
@@ -51,6 +61,8 @@ class Listgroup extends React.Component
     databaseRef = this.props.navigation.getParam('dataRef', null);
     var key = this.props.navigation.getParam('personKey', "");
 
+    var groupList = ""
+
     this.state =
     {
       data: [
@@ -59,8 +71,11 @@ class Listgroup extends React.Component
         name: "",
         member: []
       }],
+      currentGroup: [],
       code: "txt",
-      personKey: key
+      personKey: key,
+      groupList: "",
+      groups: []
     };
   }
 
@@ -69,7 +84,7 @@ class Listgroup extends React.Component
     databaseRef.child('group').on('value', (snapshot) =>
     {
       var items = [];
-
+      
       snapshot.forEach((child1) =>
       {
         var childKey = child1.key;
@@ -89,9 +104,66 @@ class Listgroup extends React.Component
           name: groupName,
           member: groupMembers
         });
+
+        // do current groups
+        
+
+
       })
 
+      console.warn(items);
+
       this.setState({data: items});
+    })
+
+    databaseRef.child('user').child(key).child('grouplist').on('value', snapshot1 => {
+      
+      console.warn("Key " + key)
+      console.warn(snapshot1)
+      
+      //this.setState({groupList: ""})
+
+      //console.warn("GroupList  " + this.state.groupList)
+      
+      databaseRef.child('group').on('value', (snapshot) => {
+        
+        var items = [];
+      
+        snapshot.forEach((child1) =>
+        {
+          console.warn("GrouoList " + this.state.groupList)
+          if (snapshot1.val().toString().includes(child1.key)) {
+            items.push({
+              key: child1.key,
+              name: child1.child('name').val().toString()
+            })
+          }
+        })
+
+        this.setState({groups: items})
+      })
+
+    })
+  }
+
+  gotoNewGroup = (id) => {
+
+    databaseRef.child('user').child(key).child('group').set(id);
+
+    this.props.navigation.reset([NavigationActions.navigate({ routeName: 'Map', params: {personKey: key, groupKey: id} },)], 0);
+  }
+
+  renderGroup = () => {
+
+    return this.state.groups.map(group => {
+      return (
+        <Block center>
+          <Button style={styles.button}
+                  onPress={() => this.gotoNewGroup(group.key)}>
+            {group.name}
+          </Button>
+        </Block>
+      )
     })
   }
 
@@ -102,27 +174,7 @@ class Listgroup extends React.Component
     return (
       <Block flex>
         <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-              <Input
-                right
-                placeholder = "Input your new group code"
-
-                style = 
-                {{
-                  borderColor: argonTheme.COLORS.INFO,
-                  borderRadius: 4,
-                  backgroundColor: "#fff"
-                }}
-
-                iconContent = {<Block/>}
-                onChangeText = {(text) => {this.setState({code: text});}}
-              />
-        </Block>
-        <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-          <Block center>
-            <Button color="default" style={styles.button}>
-                CREATE
-            </Button>
-          </Block>
+          
           <Block center>
             <Button
               color = "secondary"
@@ -135,30 +187,10 @@ class Listgroup extends React.Component
               Avaiable Group
             </Text>
           </Block>
+
+          {this.renderGroup()}
           
-          <Block center>
-            <Button style={styles.button}>Group Faminly</Button>
-          </Block>
-          <Block center>
-            <Button color="info" style={styles.button}>
-              Group 1
-            </Button>
-          </Block>
-          <Block center>
-            <Button color="success" style={styles.button}>
-            Group 2
-            </Button>
-          </Block>
-          <Block center>
-            <Button color="warning" style={styles.button}>
-            Group AN CHOI
-            </Button>
-          </Block>
-          <Block center>
-            <Button color="error" style={styles.button}>
-            Group Di Phuot
-            </Button>
-          </Block>
+          
           <Block row space="evenly">
             <Block flex left>
               <Select
@@ -254,6 +286,7 @@ class Listgroup extends React.Component
                   backgroundColor: "#fff"
                 }}
                 iconContent={<Block />}
+                onChangeText = {(text) => {this.setState({code: text})}}
               />
           </Block>
       </Block>

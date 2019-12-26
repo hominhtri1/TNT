@@ -68,11 +68,11 @@ const CustomDrawerContentComponent = (props) => {
     }
 
     gotoCreateGroup = () => {
-        props.navigation.navigate('CreateGroup')
+        props.navigation.navigate('CreateGroup', {dataRef: databaseRef, personKey: key});
     }
 
     gotoJoinGroup = () => {
-        props.navigation.navigate('JoinGroup')
+        //props.navigation.navigate('JoinGroup')
         props.navigation.navigate('JoinGroup', {dataRef: databaseRef, personKey: key});
     }
 

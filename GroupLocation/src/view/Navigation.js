@@ -47,7 +47,7 @@ const AppNavigator = createStackNavigator({
         screen: CreateGroup
     },
     JoinGroup: {
-        screen: Listgroup
+        screen: JoinGroup
     },
     
     Listgroup: {

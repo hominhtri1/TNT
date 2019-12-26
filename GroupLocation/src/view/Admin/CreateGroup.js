@@ -6,6 +6,8 @@ import { Block, Text, Button as GaButton, theme } from "galio-framework";
 import { argonTheme, tabs } from "../Login/constants";
 import { Button, Select, Icon, Input, Header, Switch } from "../Login/components";
 
+import {databaseRef} from './../../controller/Firebase_Config'
+
 const { width } = Dimensions.get("screen");
 
 class Listgroup extends React.Component {
@@ -17,13 +19,46 @@ class Listgroup extends React.Component {
   toggleSwitch = switchId =>
     this.setState({ [switchId]: !this.state[switchId] });
 
+  constructor(props) {
+    super(props)
+     
+    this.state = {
+      code: ""
+    }
+  }
+
+  createGroup = () => {
+
+    if (this.state.code == "") return
+
+    personKey = this.props.navigation.getParam('personKey', "");
+
+    // add group
+    
+    var key = databaseRef.child('group').push().key
+    databaseRef.child('group').child(key).set(
+    {
+      name: this.state.code
+    });
+
+    // add group for user
+    var value = ""
+  
+    databaseRef.child('user').child(personKey).child('grouplist').on('value', snapshot => {
+      value =  snapshot.val().toString()
+    });
+
+    databaseRef.child('user').child(personKey).child('grouplist').set(value + ',' + key)
+  }
+
   renderButtons = () => {
     return (
       <Block flex>
         
         <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
           <Block center>
-            <Button color="default" style={styles.button}>
+            <Button color="default" style={styles.button}
+                    onPress={() => this.createGroup()}>
                 CREATE
             </Button>
           </Block>
@@ -105,6 +140,7 @@ class Listgroup extends React.Component {
                   backgroundColor: "#fff"
                 }}
                 iconContent={<Block />}
+                onChangeText={text => {this.setState({code: text})}}
               />
           </Block>
       </Block>

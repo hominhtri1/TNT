@@ -38,7 +38,11 @@ class Listgroup extends React.Component {
     var key = databaseRef.child('group').push().key
     databaseRef.child('group').child(key).set(
     {
-      name: this.state.code
+      name: this.state.code,
+      meetingpoint: {
+        latitude: 8,
+        longitude: 100
+      }
     });
 
     // add group for user

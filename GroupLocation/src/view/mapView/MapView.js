@@ -47,6 +47,7 @@ class MapViews extends Component {
     //this.getLocation();
     //this.props.navigation.setParams({ increaseCount: this._increaseCount });
     this.getFriendList()
+    this.getLocation()
 
     Geolocation.getCurrentPosition(info => {
       this.setState({userCoor: {
@@ -66,6 +67,34 @@ class MapViews extends Component {
     })  
 
   }
+
+  getLocation = () => {
+
+    if (this.props.group == "") return;
+
+    databaseRef.child('group').child(this.props.group).child("meetingpoint").on('value', snapshot => {
+      //console.warn("Snapshot " + snapshot.child('longitude').val())
+      this.setState({locationCoor: {
+        latitude: snapshot.child('latitude').val(),
+        longitude: snapshot.child('longitude').val()
+      }})
+    })
+
+  }
+
+  updateMeetingPoint = (coor) => {
+
+    if (this.props.group == "") return;
+
+    databaseRef.child('group').child(this.props.group).child("meetingpoint").set({
+      latitude: coor.latitude,
+      longitude: coor.longitude
+    })
+
+
+  }
+
+
 
   userPositionConfig = () => {
 
@@ -157,7 +186,9 @@ class MapViews extends Component {
             visible={this.state.visible}
             coordinate={this.state.locationCoor}
             draggable={true}
-            onDragEnd={e => {this.setState({locationCoor: e.nativeEvent.coordinate})}}/>
+            onDragEnd={e => {//this.setState({locationCoor: e.nativeEvent.coordinate})
+                              this.updateMeetingPoint(e.nativeEvent.coordinate)
+          }}/>
       )
     }
     else return null

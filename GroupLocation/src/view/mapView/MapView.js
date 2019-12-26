@@ -8,7 +8,10 @@ import BottomSheet from './../Component/BottomSheet'
 import mapController from './../../controller/MapController'
 import MapController from './../../controller/MapController';
 import Geolocation from '@react-native-community/geolocation';
-import {databaseRef} from './../../controller/Firebase_Config'
+import {
+  databaseRef,
+  storageRef
+} from './../../controller/Firebase_Config'
 
 const {height} = Dimensions.get('window')
 
@@ -24,14 +27,15 @@ class MapViews extends Component {
 
     this.state =
     {
-      data: [{id: 0, key: {lat: 8, lon: 100}, isHightlight: false}],
+      data: [{id: 0, key: {lat: 8, lon: 100}, isHightlight: false, url: ""}],
       locationCoor: {
         latitude: 10.76291,
         longitude: 106.67997
       },
       userCoor: {
         latitude: 10.76291,
-        longitude: 106.67997
+        longitude: 106.67997,
+        url: ""
       },
       placeMarker: true,
       visible: true,
@@ -48,15 +52,20 @@ class MapViews extends Component {
     //this.props.navigation.setParams({ increaseCount: this._increaseCount });
     this.getFriendList()
     this.getLocation()
+    this.getCurrentLocation()
+    this.getUserInfomation()
+    this.getImage()
+  }
 
-    Geolocation.getCurrentPosition(info => {
+  getCurrentLocation = () => {
+
+    /*Geolocation.getCurrentPosition(info => {
       this.setState({userCoor: {
         latitude: info.coords.latitude,
         longitude: info.coords.longitude
       }})
       this.userPositionConfig()
-    })
-
+    })*/
 
     Geolocation.watchPosition(info => {
       this.setState({userCoor: {
@@ -67,6 +76,7 @@ class MapViews extends Component {
     })  
 
   }
+
 
   getLocation = () => {
 
@@ -94,13 +104,29 @@ class MapViews extends Component {
 
   }
 
+  getUserInfomation = () => {
+
+    databaseRef.child('user').child(key).on('value', snapshot => {
+      this.setState({userCoor: {
+        latitude: this.state.userCoor.latitude,
+        longitude: this.state.userCoor.longitude,
+        url: snapshot.child('url').val().toString()
+
+      }})
+    })
+
+
+
+  }
+
 
 
   userPositionConfig = () => {
 
     databaseRef.child('user').child(key).child('latitude').set(this.state.userCoor.latitude)
     databaseRef.child('user').child(key).child('longitude').set(this.state.userCoor.longitude);
-  }
+    
+  } 
 
   getFriendList = () => {
 
@@ -120,7 +146,9 @@ class MapViews extends Component {
           var childKey = child.key;
           var latitude = child.child('latitude').val().toString();
           var longitude = child.child('longitude').val().toString();
-
+          var url = child.child('url').val().toString();
+          
+            
           items.push(
           {
             id: childKey, 
@@ -128,18 +156,22 @@ class MapViews extends Component {
               lat: latitude, 
               lon: longitude
             }, 
-            isHightlight: false
+            isHightlight: false,
+            url: url
           });
         }
       })
-      
-
+    
       this.setState({data: items});
-
-
     })
 
     
+  }
+
+  getImage = () => {
+    
+    
+
   }
 
 
@@ -214,7 +246,8 @@ class MapViews extends Component {
               longitude: parseFloat(location.key.lon)
             }
           }
-          HLCoordinate={this.state.locationCoor}>
+          HLCoordinate={this.state.locationCoor}
+          url={this.state.data[i].url}>
 
         </NewMarker>
       );
@@ -248,7 +281,8 @@ class MapViews extends Component {
             key = {100}
             visible = {this.state.visible}
             coordinate = {this.state.userCoor}
-            HLCoordinate = {this.state.locationCoor} />
+            HLCoordinate = {this.state.locationCoor}
+            url={this.state.userCoor.url} />
 
           {this.checkLocation()}
 

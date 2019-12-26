@@ -67,7 +67,8 @@ export default class NewMarker extends Component {
                       size={40}
                       containerStyle={styles.avatar}
                       rounded
-                      source={require("./../../../resource/Image/test.jpg")}
+                      source ={{uri: this.props.url}}
+                      //source={require("./../../../resource/Image/test.jpg")}
                     />
                 
                 </ImageBackground>

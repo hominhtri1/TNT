@@ -15,4 +15,6 @@ var firebaseApp = firebase.initializeApp(firebaseConfig);
 
 var databaseRef = firebaseApp.database().ref();
 
-export {databaseRef};
+var storageRef = firebaseApp.storage().ref();
+
+export {databaseRef, storageRef};

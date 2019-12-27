@@ -19,7 +19,7 @@ class HomeScreen extends Component {
 
     gotoFriendProfile = (id) => {
         console.warn("ID" + id)
-        this.props.navigation.navigate('FriendProfile',{friendId: id})
+        this.props.navigation.navigate('FriendProfile', {friendId: id})
     }
 
     render() {
@@ -30,9 +30,10 @@ class HomeScreen extends Component {
 
                 <MapViews 
                     gotoFriendProfile={this.gotoFriendProfile}
-                    key={this.props.navigation.getParam('personKey', "")}
-                    group={this.props.navigation.getParam('groupKey', "")}
-                    {...this.props}/>
+                    //key={this.props.navigation.getParam('personKey', "")}
+                    //group={this.props.navigation.getParam('groupKey', "")}
+                    {...this.props}
+                    />
 
                 <Header>
 
@@ -61,19 +62,19 @@ class HomeScreen extends Component {
 const CustomDrawerContentComponent = (props) => {
 
     //databaseRef = props.navigation.getParam('dataRef', null);
-    key = props.navigation.getParam('personKey', "");
+    //key = props.navigation.getParam('personKey', "");
 
     gotoMyProfile = () => {
         props.navigation.navigate('MyProfile')
     }
 
     gotoCreateGroup = () => {
-        props.navigation.navigate('CreateGroup', {dataRef: databaseRef, personKey: key});
+        props.navigation.navigate('CreateGroup');
     }
 
     gotoJoinGroup = () => {
         //props.navigation.navigate('JoinGroup')
-        props.navigation.navigate('JoinGroup', {dataRef: databaseRef, personKey: key});
+        props.navigation.navigate('JoinGroup');
     }
 
     gotoLogIn = () => {

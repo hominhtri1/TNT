@@ -1,7 +1,7 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import Signin from './Login/src/pages/Signin2'
+import Signin from './Login/src/pages/Signin3'
 // import Singup from './Login/src/pages/Signup'
 // import MyProfile from './Login/src/pages/MyProfile'
 // import FriendProfile from './Login/src/pages/FriendProfile'
@@ -11,7 +11,7 @@ import Signin from './Login/src/pages/Signin2'
 // import CreateGroup from './Admin/CreateGroup'
 // import JoinGroup from './Admin/JoinGroup'
 // import Listgt
-import MessageView from './MessageView2'
+import MessageView from './MessageView'
 
 /*
 const AppNavigator = createStackNavigator({

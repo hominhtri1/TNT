@@ -25,6 +25,13 @@ export default class MyChat extends React.Component {
   }
 
   onSend(messages = []) {
+
+    messages[0].user = {
+      //_id: 'aa',
+      //name: "React Native",
+      //avatar: "https://placeimg.com/140/140/any"
+    }
+
     this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, messages),
     }))

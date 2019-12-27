@@ -1,10 +1,10 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import Signin from './Login/src/pages/Signin2'
-import Singup from './Login/src/pages/Signup'
-import MyProfile from './Login/src/pages/MyProfile'
-import FriendProfile from './Login/src/pages/FriendProfile'
+import Signin from './SigninView'
+import Singup from './SignupView'
+import MyProfile from './MyProfileView'
+import FriendProfile from './FriendProfileView'
 import Chat from './Admin/Chat'
 import Listgroup from './Admin/Listgroup2'
 import MapContainers from './mapView/MapViewContainer'
@@ -14,8 +14,6 @@ import JoinGroup from './Admin/JoinGroup'
 
 const AppNavigator = createStackNavigator({
 
-    
-    
     SignIn: {
         screen: Signin,
 

@@ -13,6 +13,8 @@ import {
   storageRef
 } from './../../controller/Firebase_Config'
 
+
+
 const {height} = Dimensions.get('window')
 
 class MapViews extends Component {
@@ -22,8 +24,8 @@ class MapViews extends Component {
     super(props);
 
     //databaseRef = this.props.navigation.getParam('dataRef', null);
-    var key = this.props.key;
-    console.warn("Key " + key)
+    
+    //console.warn("Key " + key)
 
     this.state =
     {
@@ -44,6 +46,9 @@ class MapViews extends Component {
 
     //this.getLocation = getLocation.bind(this);
     this.mapController = new MapController(this)
+
+    this.key = this.mapController.getUserID();
+    this.group = this.mapController.getGroupID();
   }
 
   componentDidMount() {
@@ -80,9 +85,9 @@ class MapViews extends Component {
 
   getLocation = () => {
 
-    if (this.props.group == "") return;
+    if (this.group == "") return;
 
-    databaseRef.child('group').child(this.props.group).child("meetingpoint").on('value', snapshot => {
+    databaseRef.child('group').child(this.group).child("meetingpoint").on('value', snapshot => {
       //console.warn("Snapshot " + snapshot.child('longitude').val())
       this.setState({locationCoor: {
         latitude: snapshot.child('latitude').val(),
@@ -94,9 +99,9 @@ class MapViews extends Component {
 
   updateMeetingPoint = (coor) => {
 
-    if (this.props.group == "") return;
+    if (this.group == "") return;
 
-    databaseRef.child('group').child(this.props.group).child("meetingpoint").set({
+    databaseRef.child('group').child(this.group).child("meetingpoint").set({
       latitude: coor.latitude,
       longitude: coor.longitude
     })
@@ -106,7 +111,7 @@ class MapViews extends Component {
 
   getUserInfomation = () => {
 
-    databaseRef.child('user').child(key).on('value', snapshot => {
+    databaseRef.child('user').child(this.key).on('value', snapshot => {
       this.setState({userCoor: {
         latitude: this.state.userCoor.latitude,
         longitude: this.state.userCoor.longitude,
@@ -123,8 +128,8 @@ class MapViews extends Component {
 
   userPositionConfig = () => {
 
-    databaseRef.child('user').child(key).child('latitude').set(this.state.userCoor.latitude)
-    databaseRef.child('user').child(key).child('longitude').set(this.state.userCoor.longitude);
+    databaseRef.child('user').child(this.key).child('latitude').set(this.state.userCoor.latitude)
+    databaseRef.child('user').child(this.key).child('longitude').set(this.state.userCoor.longitude);
     
   } 
 
@@ -132,16 +137,16 @@ class MapViews extends Component {
 
     console.warn("Get friend");
 
-    if (this.props.group == "") return;
+    if (this.group == "") return;
     
-    groupKey = this.props.group
+    groupKey = this.group
     databaseRef.child('user').on('value', (snapshot) => {
 
       var items = [];
 
       snapshot.forEach((child) =>
       {
-        if (child.child('grouplist').val().toString().includes(groupKey) && child.key != key) {
+        if (child.child('grouplist').val().toString().includes(groupKey) && child.key != this.key) {
         
           var childKey = child.key;
           var latitude = child.child('latitude').val().toString();

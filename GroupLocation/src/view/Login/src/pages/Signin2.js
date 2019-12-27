@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Container from '../../components/Container';
-import Label from '../../components/Label';
+//import Label from '../../components/Label';
 import {Block, Checkbox, Text, theme} from 'galio-framework';
 import {
   Dimensions,

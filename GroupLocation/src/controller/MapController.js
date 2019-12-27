@@ -1,10 +1,9 @@
-
+import User from './../model/user/User'
 
 class MapController {
 
     constructor(map) {
         this.map = map
-        console.warn(map)
     }
 
     setMarker = () => {
@@ -13,6 +12,14 @@ class MapController {
         // set map
         this.map.setLocationButton()
         console.warn("Enter");
+    }
+
+    getUserID() {
+        return User.getCurrentUserId();
+    }
+
+    getGroupID() {
+        return User.getCurrentGroupId();
     }
 
 }

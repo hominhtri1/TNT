@@ -1,4 +1,5 @@
 import {databaseRef} from './../../controller/Firebase_Config'
+import { create } from 'react-test-renderer';
 
 class User {
 
@@ -65,6 +66,38 @@ class User {
 
     }
 
+    static addUser(user, pass, onSignupFail, onSignupSuccess) {
+        
+        created = true 
+
+        databaseRef.child('user').once('value', (snapshot) =>  { 
+
+            snapshot.forEach((child) => {
+                if (child.child("username").val().toString() == user) created = false;
+            })
+
+            if (created) {
+
+                databaseRef.child('user').push().set(
+                {
+                    group: "",
+                    grouplist: [],
+                    latitude: "",
+                    longitude: "",
+                    grouplist: "",
+                    password: pass,
+                    username: user,
+                    name: "",
+                    url: ""
+                });
+                
+                onSignupSuccess();
+            }
+            else {
+                onSignupFail();
+            }
+        })
+    }
 }
 
 export default User;

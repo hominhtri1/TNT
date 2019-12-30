@@ -114,7 +114,7 @@ export default class Signin extends Component {
             style = {{marginTop: 20, paddingBottom: 24}}>
 
             <Button 
-              onPress = {() => {this.signUp()}}
+              onPress = {() => {this.props.gotoSignup()}}
               small
               style = {{backgroundColor: argonTheme.COLORS.INFO}}>
               Sign Up

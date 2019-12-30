@@ -12,6 +12,7 @@ import CreateGroup from './Admin/CreateGroup'
 import JoinGroup from './Admin/JoinGroup'
 //import Listgt
 import SigninController from './../controller/SigninController2'
+import SignupController from './../controller/SignupController'
 
 const AppNavigator = createStackNavigator({
 
@@ -30,7 +31,7 @@ const AppNavigator = createStackNavigator({
         }
       },
     SignUp: {
-        screen: Singup,
+        screen: SignupController,
 
     },
     MyProfile: {

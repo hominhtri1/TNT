@@ -34,7 +34,7 @@ class SigninController extends Component {
     }
 
     gotoSignup = () => {
-        this.props.navigation.navigate('SignIn');
+        this.props.navigation.navigate('SignUp');
     }
 
     render() {

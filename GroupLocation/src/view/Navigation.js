@@ -11,11 +11,12 @@ import MapContainers from './mapView/MapViewContainer'
 import CreateGroup from './Admin/CreateGroup'
 import JoinGroup from './Admin/JoinGroup'
 //import Listgt
+import SigninController from './../controller/SigninController2'
 
 const AppNavigator = createStackNavigator({
 
     SignIn: {
-        screen: Signin,
+        screen: SigninController,
 
         navigationOptions: {
             header: null

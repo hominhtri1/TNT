@@ -1,5 +1,4 @@
 import {databaseRef} from './../../controller/Firebase_Config'
-import SigninController from './../../controller/SigninController'
 
 class User {
 
@@ -33,7 +32,7 @@ class User {
     }
 
     // find user with user and pass
-    static checkUser(user, pass) {
+    static checkUser(user, pass, onSigninFail, onSigninSuccess) {
         
         login = false
 
@@ -58,15 +57,14 @@ class User {
             })
             
             // call back to controller
-            if (login) 
-                SigninController.getInstance().signInComplete()
+            if (login)
+                onSigninSuccess()
             else    
-                SigninController.getInstance().signInFail()
-
+                onSigninFail()
         })
 
     }
-    
+
 }
 
 export default User;

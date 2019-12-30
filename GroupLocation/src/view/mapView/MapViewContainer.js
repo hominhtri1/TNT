@@ -85,6 +85,10 @@ const CustomDrawerContentComponent = (props) => {
         props.navigation.navigate('SignIn')
     }
 
+    gotoGroupProfile = () => {
+        console.warn("Only leader can have this")
+    }
+
     return(
         <Container>
             <Header>
@@ -99,6 +103,14 @@ const CustomDrawerContentComponent = (props) => {
                     onPress = {() => {this.gotoMyProfile()}}>
 
                     <Text style={styles.text}>Profile</Text>
+
+                </TouchableOpacity>
+
+                <TouchableOpacity 
+                    style={styles.button}
+                    onPress = {() => {this.gotoGroupProfile()}}>
+
+                    <Text style={styles.text}>Group profile</Text>
 
                 </TouchableOpacity>
 

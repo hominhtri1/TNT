@@ -23,7 +23,7 @@ import SigninController from '../controller/SigninController'
 const {width, height} = Dimensions.get('screen');
 
 export default class Signin extends Component {
-  
+
   constructor(props) {
     super(props);
 
@@ -72,8 +72,6 @@ export default class Signin extends Component {
               {' '}
               Password
             </Text>
-            {this.renderTestData()}
-
             <Block width = {width * 0.8} style = {{marginBottom: 15}}>
               <Input
                 password

@@ -22,6 +22,10 @@ class HomeScreen extends Component {
         this.props.navigation.navigate('FriendProfile', {friendId: id})
     }
 
+    leaveGroup = () => {
+        console.warn("Implement leave group here");
+    }
+
     render() {
         //console.warn(this.props.navigation.getParam('personKey', ""))
 
@@ -111,6 +115,14 @@ const CustomDrawerContentComponent = (props) => {
                     onPress = {() => {this.gotoJoinGroup()}}>
 
                     <Text style={styles.text}>Join group</Text>
+
+                </TouchableOpacity>
+
+                <TouchableOpacity 
+                    style={styles.button}
+                    onPress = {() => {this.leaveGroup()}}>
+
+                    <Text style={styles.text}>Leave group</Text>
 
                 </TouchableOpacity>
 

@@ -14,6 +14,7 @@ import JoinGroup from './Admin/JoinGroup'
 import SigninController from './../controller/SigninController2'
 import SignupController from './../controller/SignupController'
 import MapContainerController from './../controller/MapContainerController'
+import TotalMapController from './../controller/TotalMapController'
 
 const AppNavigator = createStackNavigator({
 
@@ -25,7 +26,7 @@ const AppNavigator = createStackNavigator({
         }
     },
     Map: {
-        screen: MapContainerController,
+        screen: TotalMapController,
         
         navigationOptions: {
           header: null

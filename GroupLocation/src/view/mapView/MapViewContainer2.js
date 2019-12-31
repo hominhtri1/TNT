@@ -10,11 +10,12 @@ import MapController from './../../controller/MapController2'
 
 const HomeScreen = (props) => {
 
+    console.warn(props.screenProps)
+
         return (
             <Container>
 
-                {/*<MapViews />*/}
-                <MapController />
+                {props.screenProps.chilren}
                 
                 <Header>
 

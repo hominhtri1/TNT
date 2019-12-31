@@ -1,9 +1,15 @@
 import React, {Component} from 'react'
 import User from '../model/user/User'
-import MapViewContainer from '../view/mapView/MapViewContainer2'
+import MapContainers from '../view/mapView/MapViewContainer2'
 import MapController from './MapController2'
 
 class MapContrainerController extends Component {
+
+    constructor(props) {
+        super(props)
+        console.warn(this.props.children)
+    }
+
 
     gotoChat = () => {
         //console.warn('Chat'); 
@@ -42,7 +48,7 @@ class MapContrainerController extends Component {
 
     render() {
         return(
-            <MapViewContainer
+            <MapContainers
                 screenProps={{
                     gotoChat: this.gotoChat,
                     leaveGroup: this.leaveGroup,
@@ -50,10 +56,10 @@ class MapContrainerController extends Component {
                     gotoCreateGroup: this.gotoCreateGroup,
                     gotoJoinGroup: this.gotoJoinGroup,
                     gotoLogIn: this.gotoLogIn,
-                    gotoGroupProfile: this.gotoGroupProfile
+                    gotoGroupProfile: this.gotoGroupProfile,
+                    chilren: this.props.children
                 }}>
-                
-            </MapViewContainer>
+            </MapContainers>
         )
     }
 }

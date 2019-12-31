@@ -85,11 +85,9 @@ class MapController extends Component {
                 visible: true
             })
         }
-    
     }
 
     render() {
-
         return(
             <MapView
                 userCoor={this.state.userCoor}

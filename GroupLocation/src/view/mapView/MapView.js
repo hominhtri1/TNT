@@ -3,7 +3,7 @@ import MapView, {Marker, PROVIDER_GOOGLE, UrlTile} from 'react-native-maps';
 import {Text, View, StyleSheet, Image, Button, Dimensions} from 'react-native' 
 //import {getLocation} from '../../controller/FireBase/App_Firebase_HMT'
 import NewMarker from '../Component/NewMarker'
-import FriendList from './../Component/FriendList'
+import FriendList from './FriendListView'
 import BottomSheet from './../Component/BottomSheet'
 import mapController from './../../controller/MapController'
 import MapController from './../../controller/MapController';
@@ -12,6 +12,8 @@ import {
   databaseRef,
   storageRef
 } from './../../controller/Firebase_Config'
+
+import FriendListController from './../../controller/FriendListController'
 
 
 
@@ -59,7 +61,6 @@ class MapViews extends Component {
     this.getLocation()
     this.getCurrentLocation()
     this.getUserInfomation()
-    this.getImage()
   }
 
   getCurrentLocation = () => {
@@ -172,14 +173,6 @@ class MapViews extends Component {
 
     
   }
-
-  getImage = () => {
-    
-    
-
-  }
-
-
 
   setHightlight = (id) => {
     
@@ -299,11 +292,12 @@ class MapViews extends Component {
             toggleLocationButton={this.toggleLocationButton}
             setLocationButton={this.mapController.setMarker}>
 
-            <FriendList 
+            {/*<FriendList 
                 data={this.state.data}
                 setHightlight={this.setHightlight}
                 gotoFriendProfile={this.props.gotoFriendProfile}
-                {...this.props}/>
+            {...this.props}/>*/}
+            <FriendListController/>
 
           </BottomSheet>
           

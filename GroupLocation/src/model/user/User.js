@@ -33,6 +33,7 @@ class User {
     }
 
     // find user with user and pass
+    // for signin
     static checkUser(user, pass, onSigninFail, onSigninSuccess) {
         
         login = false
@@ -66,6 +67,8 @@ class User {
 
     }
 
+    // add new user to firebase
+    // for signup   
     static addUser(user, pass, onSignupFail, onSignupSuccess) {
         
         created = true 
@@ -98,6 +101,15 @@ class User {
             }
         })
     }
+
+    static updatePosition(lat,lon) {
+
+        /*id = this.getCurrentUserId();
+
+        databaseRef.child('user').child(id).child('latitude').set(lat)
+        databaseRef.child('user').child(id).child('longitude').set(lon);*/
+    }
+
 }
 
 export default User;

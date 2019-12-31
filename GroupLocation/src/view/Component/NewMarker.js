@@ -21,10 +21,7 @@ export default class NewMarker extends Component {
       this.setState({rotate: this.findAngel(this.props.HLCoordinate)})
     }
 
-
-    // calculate between desination and current location
     findAngel = (coordinate) => {
-      
       return Math.PI/2 - Math.atan2(
         this.props.coordinate.latitude - coordinate.latitude,
         this.props.coordinate.longitude - coordinate.longitude

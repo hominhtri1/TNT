@@ -6,44 +6,21 @@ import { Icon, Container, Content, Header, Body, Left, Right} from 'native-base'
 import MapViews from './MapView'
 import mapContainerController from '../../controller/MapContainerController'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import MapController from './../../controller/MapController2'
 
-import {databaseRef} from '../../controller/Firebase_Config'
-
-class HomeScreen extends Component {
-
-
-    gotoChat = () => {
-        //console.warn('Chat'); 
-        this.props.navigation.navigate('Chat')
-    }
-
-    gotoFriendProfile = (id) => {
-        console.warn("ID" + id)
-        this.props.navigation.navigate('FriendProfile', {friendId: id})
-    }
-
-    leaveGroup = () => {
-        console.warn("Implement leave group here");
-    }
-
-    render() {
-        //console.warn(this.props.navigation.getParam('personKey', ""))
+const HomeScreen = (props) => {
 
         return (
             <Container>
 
-                <MapViews 
-                    gotoFriendProfile={this.gotoFriendProfile}
-                    //key={this.props.navigation.getParam('personKey', "")}
-                    //group={this.props.navigation.getParam('groupKey', "")}
-                    {...this.props}
-                    />
-
+                {/*<MapViews />*/}
+                <MapController />
+                
                 <Header>
 
                     <Left style={{flex:1}}>
                         <Icon name="menu"
-                              onPress={() => this.props.navigation.openDrawer({dataRef: databaseRef, personKey: key})}/>    
+                              onPress={() => props.navigation.openDrawer()}/>    
                     </Left>
 
                     <Body style={{flex:1}}>
@@ -53,41 +30,16 @@ class HomeScreen extends Component {
                     <Right style={{flex:1}}>
 
                         <Icon name="md-chatboxes"
-                              onPress={() => {this.gotoChat()}}/>  
+                              onPress={() => {props.screenProps.gotoChat()}}/>  
                     </Right>
                     
                 </Header>
 
             </Container>
         )
-    }
 }
 
 const CustomDrawerContentComponent = (props) => {
-
-    //databaseRef = props.navigation.getParam('dataRef', null);
-    //key = props.navigation.getParam('personKey', "");
-
-    gotoMyProfile = () => {
-        props.navigation.navigate('MyProfile')
-    }
-
-    gotoCreateGroup = () => {
-        props.navigation.navigate('CreateGroup');
-    }
-
-    gotoJoinGroup = () => {
-        //props.navigation.navigate('JoinGroup')
-        props.navigation.navigate('JoinGroup');
-    }
-
-    gotoLogIn = () => {
-        props.navigation.navigate('SignIn')
-    }
-
-    gotoGroupProfile = () => {
-        console.warn("Only leader can have this")
-    }
 
     return(
         <Container>
@@ -100,7 +52,7 @@ const CustomDrawerContentComponent = (props) => {
 
                 <TouchableOpacity 
                     style={styles.button}
-                    onPress = {() => {this.gotoMyProfile()}}>
+                    onPress = {() => {props.screenProps.gotoMyProfile()}}>
 
                     <Text style={styles.text}>Profile</Text>
 
@@ -108,7 +60,7 @@ const CustomDrawerContentComponent = (props) => {
 
                 <TouchableOpacity 
                     style={styles.button}
-                    onPress = {() => {this.gotoGroupProfile()}}>
+                    onPress = {() => {group.screenProps.gotoGroupProfile()}}>
 
                     <Text style={styles.text}>Group profile</Text>
 
@@ -116,7 +68,7 @@ const CustomDrawerContentComponent = (props) => {
 
                 <TouchableOpacity 
                     style={styles.button}
-                    onPress = {() => {this.gotoCreateGroup()}}>
+                    onPress = {() => {group.screenProps.gotoCreateGroup()}}>
 
                     <Text style={styles.text}>Create group</Text>
 
@@ -124,7 +76,7 @@ const CustomDrawerContentComponent = (props) => {
 
                 <TouchableOpacity 
                     style={styles.button}
-                    onPress = {() => {this.gotoJoinGroup()}}>
+                    onPress = {() => {group.screenProps.gotoJoinGroup()}}>
 
                     <Text style={styles.text}>Join group</Text>
 
@@ -132,7 +84,7 @@ const CustomDrawerContentComponent = (props) => {
 
                 <TouchableOpacity 
                     style={styles.button}
-                    onPress = {() => {this.leaveGroup()}}>
+                    onPress = {() => {group.screenProps.leaveGroup()}}>
 
                     <Text style={styles.text}>Leave group</Text>
 
@@ -140,7 +92,7 @@ const CustomDrawerContentComponent = (props) => {
 
                 <TouchableOpacity 
                     style={styles.button}
-                    onPress = {() => {this.gotoLogIn()}}>
+                    onPress = {() => {group.screenProps.gotoLogIn()}}>
 
                     <Text style={styles.text}>Log out</Text>
 
@@ -161,15 +113,11 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 20
     }
-
-
-
 })
-
 
 const AppDrawerNavigator = createDrawerNavigator(
     {
-        Home: HomeScreen
+        Home: props => <HomeScreen {...props} />
     },
     {
         contentComponent: props => <CustomDrawerContentComponent {...props} />,

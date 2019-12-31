@@ -1,3 +1,4 @@
+import React, {Component} from 'react'
 import User from './../model/user/User'
 
 class MapController {

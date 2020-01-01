@@ -40,8 +40,6 @@ class MapViews extends Component {
     this.setState({data: newData})
   }
 
-  // UI Relate
-
   // UI Realte
   toggleLocationButton = () => {
     this.setState({placeMarker: !this.state.placeMarker})
@@ -54,13 +52,7 @@ class MapViews extends Component {
       return(
         <Marker 
             visible={this.props.locationCoor.visible}
-            coordinate=
-            {
-              {
-                latitude: parseFloat(this.props.locationCoor.latitude),
-                longitude: parseFloat(this.props.locationCoor.longitude)
-              }
-            }
+            coordinate={this.props.locationCoor}
             draggable={true}
             onDragEnd={e => {//this.setState({locationCoor: e.nativeEvent.coordinate})
                               this.props.updateMeetingPoint(e.nativeEvent.coordinate)}}

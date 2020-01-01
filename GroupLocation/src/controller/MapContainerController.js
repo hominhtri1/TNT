@@ -10,7 +10,6 @@ class MapContrainerController extends Component {
         console.warn(this.props.children)
     }
 
-
     gotoChat = () => {
         //console.warn('Chat'); 
         this.props.navigation.navigate('Chat')

@@ -32,6 +32,15 @@ class User {
         return null
     }
 
+    // get current url
+    static getCurrentUrl() {
+        if (this.currentUser != null)
+            return this.currentUser.avatarUrl
+        return null
+    }
+
+
+
     // find user with user and pass
     // for signin
     static checkUser(user, pass, onSigninFail, onSigninSuccess) {

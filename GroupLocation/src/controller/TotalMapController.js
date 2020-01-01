@@ -7,9 +7,11 @@ class TotalMapController extends Component {
 
     render() {
         return(
-            <MapContainerController>
+            <MapContainerController
+                navigation={this.props.navigation}>
                 <MapController>
-                    <FriendListController />
+                    <FriendListController
+                        navigation={this.props.navigation}/>
                 </MapController>
             </MapContainerController>
         )

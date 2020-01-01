@@ -15,6 +15,7 @@ import SigninController from './../controller/SigninController2'
 import SignupController from './../controller/SignupController'
 import MapContainerController from './../controller/MapContainerController'
 import TotalMapController from './../controller/TotalMapController'
+import MessageController from './../controller/MessageController'
 
 const AppNavigator = createStackNavigator({
 
@@ -43,7 +44,7 @@ const AppNavigator = createStackNavigator({
         screen: FriendProfile
     },
     Chat: {
-        screen: Chat
+        screen: MessageController
     },
     CreateGroup: {
         screen: CreateGroup

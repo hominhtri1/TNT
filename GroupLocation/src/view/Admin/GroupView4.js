@@ -45,6 +45,8 @@ class GroupView extends Component
       var snap = snapshot.child('member')
       var snapKeys = Object.keys(snap.val());
 
+      console.warn(snapKeys);
+
       for (var i = 0; i < snapKeys.length; ++i)
       {
         var memberCode = snap.child(snapKeys[i]).val().toString();
@@ -88,7 +90,7 @@ class GroupView extends Component
 
       this.databaseRef.update(updates);
 
-      this.setState({groupName: groupNameField});
+      this.setState({groupName: this.state.groupNameField});
     })
   }
 

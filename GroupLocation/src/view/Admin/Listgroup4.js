@@ -224,6 +224,7 @@ class Listgroup extends React.Component
       snapshot.forEach(member =>
       {
         if (member.val().toString() == this.key)
+          console.warn(member.val().toString());
           updates['/group/' + this.groupCode + '/member/' + member.key] = null;
       })
 

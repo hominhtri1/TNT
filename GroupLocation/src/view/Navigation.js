@@ -1,14 +1,8 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import Signin from './SigninView'
-import Singup from './SignupView'
-import MyProfile from './MyProfileView'
 import FriendProfile from './FriendProfileView'
-import Chat from './Admin/Chat'
 import Listgroup from './Admin/Listgroup2'
-import MapContainers from './mapView/MapViewContainer2'
-import CreateGroup from './Admin/CreateGroup'
 import JoinGroup from './Admin/JoinGroup'
 //import Listgt
 import SigninController from './../controller/SigninController2'
@@ -16,6 +10,10 @@ import SignupController from './../controller/SignupController'
 import MapContainerController from './../controller/MapContainerController'
 import TotalMapController from './../controller/TotalMapController'
 import MessageController from './../controller/MessageController'
+import MyProfileController from './../controller/MyProfileController'
+import CreateGroupController from './../controller/CreateGroupController'
+import JoinGroupController from './../controller/JoinGroupController'
+import FriendProfileController from './../controller/FriendProfileController'
 
 const AppNavigator = createStackNavigator({
 
@@ -38,19 +36,19 @@ const AppNavigator = createStackNavigator({
 
     },
     MyProfile: {
-        screen: MyProfile
+        screen: MyProfileController
     },
     FriendProfile: {
-        screen: FriendProfile
+        screen: FriendProfileController
     },
     Chat: {
         screen: MessageController
     },
     CreateGroup: {
-        screen: CreateGroup
+        screen: CreateGroupController
     },
     JoinGroup: {
-        screen: JoinGroup
+        screen: JoinGroupController
     },
     
     Listgroup: {

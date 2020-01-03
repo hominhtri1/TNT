@@ -119,6 +119,86 @@ class User {
         databaseRef.child('user').child(id).child('longitude').set(lon);*/
     }
 
+    static leaveGroup(gotoMap) {
+        
+        if (this.currentUser.currentGroup == "") {
+            console.warn("Not in any group");
+            return;
+        }
+        
+        databaseRef.child('group').child(this.currentUser.currentGroup).child('member').once('value', snapshot => {
+            
+            updates = {};
+
+            updates['/user/' + this.currentUser.id + '/group'] = "";
+
+            snapshot.forEach(member =>
+            {
+                if (member.val().toString() == this.currentUser.id) {
+                    console.warn(member.val().toString());
+                    updates['/group/' + this.currentUser.currentGroup + '/member/' + this.currentUser.key] = null;
+                }
+            })
+
+            databaseRef.update(updates);
+            
+            this.currentUser.currentGroup = ""
+
+            console.warn('Left group');
+
+            gotoMap();
+        })
+    }
+
+    static setProfile(setProfile) {
+        setProfile(this.currentUser.name)
+    }
+
+    static createNewGroup(code, gotoNewGroup) {
+
+        personKey = this.currentUser.id;
+
+        // add group
+        
+        var key = databaseRef.child('group').push().key
+        databaseRef.child('group').child(key).set(
+        {
+            name: code,
+            meetingpoint: {
+                latitude: 8,
+                longitude: 100
+            },
+            leader: personKey
+        });
+
+        // add group for user
+        var value = ""
+    
+        databaseRef.child('user').child(personKey).child('grouplist').on('value', snapshot => {
+            value =  snapshot.val().toString()
+        });
+
+        databaseRef.child('user').child(personKey).child('grouplist').set(value + ',' + key)
+
+        gotoNewGroup(code, key);
+
+    }
+
+    static getNewGroup(gotoNew, key) {
+
+        this.currentUser.currentGroup = key;
+        gotoNew()
+    }
+
+    static setNewGroup(groupID, gotoNewGroup) {
+        
+        this.currentUser.currentGroup = groupID;
+        databaseRef.child('user').child(this.currentUser.id).child('group').set(groupID);
+
+        gotoNewGroup();
+        
+    }
+
 }
 
 export default User;

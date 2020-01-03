@@ -61,7 +61,7 @@ const CustomDrawerContentComponent = (props) => {
 
                 <TouchableOpacity 
                     style={styles.button}
-                    onPress = {() => {group.screenProps.gotoGroupProfile()}}>
+                    onPress = {() => {props.screenProps.gotoGroupProfile()}}>
 
                     <Text style={styles.text}>Group profile</Text>
 
@@ -69,7 +69,7 @@ const CustomDrawerContentComponent = (props) => {
 
                 <TouchableOpacity 
                     style={styles.button}
-                    onPress = {() => {group.screenProps.gotoCreateGroup()}}>
+                    onPress = {() => {props.screenProps.gotoCreateGroup()}}>
 
                     <Text style={styles.text}>Create group</Text>
 
@@ -77,7 +77,7 @@ const CustomDrawerContentComponent = (props) => {
 
                 <TouchableOpacity 
                     style={styles.button}
-                    onPress = {() => {group.screenProps.gotoJoinGroup()}}>
+                    onPress = {() => {props.screenProps.gotoJoinGroup()}}>
 
                     <Text style={styles.text}>Join group</Text>
 
@@ -85,7 +85,7 @@ const CustomDrawerContentComponent = (props) => {
 
                 <TouchableOpacity 
                     style={styles.button}
-                    onPress = {() => {group.screenProps.leaveGroup()}}>
+                    onPress = {() => {props.screenProps.leaveGroup()}}>
 
                     <Text style={styles.text}>Leave group</Text>
 
@@ -93,7 +93,7 @@ const CustomDrawerContentComponent = (props) => {
 
                 <TouchableOpacity 
                     style={styles.button}
-                    onPress = {() => {group.screenProps.gotoLogIn()}}>
+                    onPress = {() => {props.screenProps.gotoLogIn()}}>
 
                     <Text style={styles.text}>Log out</Text>
 

@@ -91,7 +91,7 @@ class MyProfile extends React.Component {
                 <Block flex>
                   <Block middle style={styles.nameInfo}>
                     <Text bold size={28} color="#32325D">
-                      Hồ Trí Minh
+                      {this.props.name}
                     </Text>
                     <Text size={16} color="#32325D" style={{ marginTop: 10 }}>
                       01675994743

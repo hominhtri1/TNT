@@ -17,5 +17,6 @@ import Listgroup from './src/view/Admin/Listgroup'
 //import Me from './src/Admin/Listgroup'
 import Admin from './src/view/Admin/Admin'
 import AppContainer from './src/view/Navigation'
+import AppNavigator from './src/view/Navigation4'
 
 AppRegistry.registerComponent(appName, () => AppContainer);

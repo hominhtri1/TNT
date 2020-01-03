@@ -18,10 +18,16 @@ class FriendListController extends Component {
         this.setState({friendList: data})
     }
 
+    gotoFriendProfile = (id) => {
+        this.props.navigation.navigate('FriendProfile', {friendID: id});
+    }
+
     render() {
         return(
             <FriendList 
-                friendList={this.state.friendList}/>
+                friendList={this.state.friendList}
+                gotoFriendProfile={this.gotoFriendProfile}
+                />
         )
     }
 

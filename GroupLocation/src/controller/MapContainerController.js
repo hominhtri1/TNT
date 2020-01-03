@@ -3,6 +3,8 @@ import User from '../model/user/User'
 import MapContainers from '../view/mapView/MapViewContainer2'
 import MapController from './MapController2'
 
+import {NavigationActions} from 'react-navigation'
+
 class MapContrainerController extends Component {
 
     constructor(props) {
@@ -15,14 +17,16 @@ class MapContrainerController extends Component {
         this.props.navigation.navigate('Chat')
     }
 
-    gotoFriendProfile = (id) => {
-        console.warn("ID" + id)
-        this.props.navigation.navigate('FriendProfile', {friendId: id})
-    }
-
     leaveGroup = () => {
         console.warn("Implement leave group here");
+        User.leaveGroup(this.gotoMap);
+        
     }
+
+    gotoMap = () => {
+        this.props.navigation.reset([NavigationActions.navigate({ routeName: 'Map' },)], 0);
+    }
+
 
     gotoMyProfile = () => {
         this.props.navigation.navigate('MyProfile')

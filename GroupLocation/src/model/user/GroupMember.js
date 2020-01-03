@@ -12,6 +12,8 @@ class GroupMember {
 
             userID = User.getCurrentUserId()
             groupID = User.getCurrentGroupId()
+
+            if (groupID == "") return;
         
             snapshot.forEach((child) => {
 
@@ -45,6 +47,8 @@ class GroupMember {
 
             userID = User.getCurrentUserId()
             groupID = User.getCurrentGroupId()
+
+            if (groupID == "") return;
         
             snapshot.forEach((child) => {
 
@@ -80,6 +84,8 @@ class GroupMember {
     static getMeetingPointLocation(setMeetingPointCoor) {
 
         groupID = User.getCurrentGroupId()
+
+        if (groupID == "") return;
         
         databaseRef.child('group').child(groupID).on('value', (snapshot) =>  { 
 
@@ -97,6 +103,8 @@ class GroupMember {
 
         groupID = User.getCurrentGroupId()
 
+        if (groupID == "") return;
+
         databaseRef.child('group').child(groupID).child("meetingpoint").set({
             latitude: location.latitude,
             longitude: location.longitude,
@@ -109,11 +117,22 @@ class GroupMember {
 
         groupID = User.getCurrentGroupId()
 
+        if (groupID == "") return;
+
         value = databaseRef.child('group').child(groupID).child("meetingpoint").child("visible").val();
         console.warn(value);
 
         databaseRef.child('group').child(groupID).child("meetingpoint").child("visible").set(!value);
+    }
 
+    static getMemberInfo(friendID, setData) {
+
+        databaseRef.child('user').child(friendID).on('value', snapshot => {
+            setData({
+                name: snapshot.child('name').val().toString(),
+                url: snapshot.child('url').val().toString()
+            })
+        })
 
     }
 

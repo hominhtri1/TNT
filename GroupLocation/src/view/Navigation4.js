@@ -2,17 +2,17 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 // import Signin from './SigninView'
-import Signin from './Login/src/pages/Signin3'
+import Signin from './Login/src/pages/Signin4'
 // import Singup from './SignupView'
 // import MyProfile from './MyProfileView'
 // import FriendProfile from './FriendProfileView'
 // import Chat from './Admin/Chat'
-import Listgroup from './Admin/Listgroup2'
+import Listgroup from './Admin/Listgroup4'
 // import MapContainers from './mapView/MapViewContainer'
 // import CreateGroup from './Admin/CreateGroup'
 // import JoinGroup from './Admin/JoinGroup'
 // import Listgt
-import GroupView from './Admin/GroupView'
+import GroupView from './Admin/GroupView4'
 
 /*
 const AppNavigator = createStackNavigator({

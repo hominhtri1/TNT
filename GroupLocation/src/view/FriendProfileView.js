@@ -22,36 +22,6 @@ const thumbMeasure = (width - 48 - 32) / 3;
 
 class FriendProfile extends React.Component {
 
-  constructor(props) {
-
-    super(props)
-
-    
-    this.state = {name: ""}
-
-    //console.warn(friendID)
-  }
-  
-  componentDidMount() {
-
-    
-    
-    var friendID = this.props.navigation.getParam('friendId', "")
-    databaseRef.child("user").child(friendID).on('value', (snapshot) => {
-
-      this.setState({name: snapshot.child("name").val().toString()})
-    })
-
-    
-
-    
-
-
-
-  }
-
-  
-
 
   render() {
     return (
@@ -69,7 +39,7 @@ class FriendProfile extends React.Component {
               <Block flex style={styles.profileCard}>
                 <Block middle style={styles.avatarContainer}>
                   <Image
-                    source={require('./../../resource/Image/test.jpg')}
+                    source={{uri: this.props.data.url}}
                     style={styles.avatar}
                   />
                 </Block>
@@ -132,7 +102,7 @@ class FriendProfile extends React.Component {
                 <Block flex>
                   <Block middle style={styles.nameInfo}>
                     <Text bold size={28} color="#32325D">
-                      {this.state.name}
+                      {this.props.data.name}
                     </Text>
                     <Text size={16} color="#32325D" style={{ marginTop: 10 }}>
                       01675994743

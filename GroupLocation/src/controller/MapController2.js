@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {View} from 'react-native'
 import GroupMember from '../model/user/GroupMember'
 import MapView from './../view/mapView/MapView2'
 import Geolocation from '@react-native-community/geolocation';
@@ -11,7 +12,7 @@ class MapController extends Component {
 
         this.state = {
 
-            friendPosList: [{id: 0, key: {lat: 8, lon: 100}, isHightlight: false, url: ""}],
+            friendPosList: [],
             locationCoor: {
                 latitude: 10.76291,
                 longitude: 106.67997,
@@ -38,9 +39,7 @@ class MapController extends Component {
     }
 
     setFriendListAndUser = (data, userData) => {
-        console.warn(userData)
-        this.setState({friendPosList: data, userCoor: userData
-        })
+        this.setState({friendPosList: data, userCoor: userData})
     }
 
     getCurrentLocation = () => {
@@ -89,14 +88,17 @@ class MapController extends Component {
 
     render() {
         return(
-            <MapView
-                userCoor={this.state.userCoor}
-                friendPosList={this.state.friendPosList}
-                locationCoor={this.state.locationCoor}
-                mapPress={this.mapPress}
-                toggleSetMarker={this.toggleSetMarker}>
-                {this.props.children}
-            </MapView>
+            
+                <MapView
+                    userCoor={this.state.userCoor}
+                    friendPosList={this.state.friendPosList}
+                    locationCoor={this.state.locationCoor}
+                    mapPress={this.mapPress}
+                    toggleSetMarker={this.toggleSetMarker}
+                    updateMeetingPoint={this.updateMeetingPoint}>
+                    {this.props.children}
+                </MapView>
+           
         )
     }
 

@@ -36,10 +36,6 @@ class CreateGroupController extends Component {
         this.props.navigation.reset([NavigationActions.navigate({ routeName: 'Map' },)], 0)
     }
 
-
-
-
-
     render() {
         return(
             <CreateGroup

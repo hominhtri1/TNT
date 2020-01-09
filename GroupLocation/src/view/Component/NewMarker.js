@@ -58,7 +58,7 @@ export default class NewMarker extends Component {
                   
                 <ImageBackground
                   style={styles.avatarContainer}
-                  source={require('./../../../resource/Image/marker.png')}>
+                  source={this.props.visible ? require('./../../../resource/Image/marker.png') : require('./../../../resource/Image/marker2.png')}>
 
                   <Avatar
                       size={40}

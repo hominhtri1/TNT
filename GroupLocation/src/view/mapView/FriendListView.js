@@ -6,10 +6,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 
 class FriendList extends Component {
 
-    constructor(props) {
-        super(props)
-    }
-
     renderItem = ({item}) => {
         console.warn(item.id)
         return(   

@@ -69,7 +69,7 @@ class MapViews extends Component {
       <NewMarker
             isHightlight = {false}
             key = {100}
-            //visible = {this.state.visible}
+            visible = {this.props.locationCoor.visible}
             coordinate =
             {
               {
@@ -95,12 +95,12 @@ class MapViews extends Component {
     
     this.props.friendPosList.forEach((data) =>
     {
-      //console.warn(this.state.data)
+      console.warn(data)
       markerList.push(
         <NewMarker
           isHightlight = {data.isHightlight}
           key = {data.id}
-          //visible = {data.visible}
+          visible = {this.props.locationCoor.visible}
           coordinate =
           {
             {

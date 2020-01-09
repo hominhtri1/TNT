@@ -5,39 +5,10 @@ class GroupMember {
 
     static getGroupMembers(setFriendList) {
 
-        databaseRef.child('user').on('value', (snapshot) =>  { 
+        userID = User.getCurrentUserId()
+        groupID = User.getCurrentGroupId()
 
-            data = []
-            userData = {}
-
-            userID = User.getCurrentUserId()
-            groupID = User.getCurrentGroupId()
-
-            if (groupID == "") return;
-        
-            snapshot.forEach((child) => {
-
-                //var id = child.key;
-                //var username = child.child('username').val().toString();
-                //var password = child.child('password').val().toString();
-                //var currentGroup = child.child('group').val().toString();
-                var groupList = child.child('grouplist').val().toString();
-                //var latitude = child.child('latitude').val().toString();
-                //var longitude = child.child('longitude').val().toString();
-                //var name = child.child('name').val().toString();
-                var avatarUrl = child.child('url').val().toString();
-
-                if (child.key != userID && groupList.includes(groupID)) {
-                    data.push({id: child.key, url: avatarUrl})
-                }
-            })
-            
-            setFriendList(data)
-        })
-
-    }
-
-    static getGroupMembersLocation(setFriendPosListAndUser) {
+        if (groupID == "") return;
 
         databaseRef.child('user').on('value', (snapshot) =>  { 
 
@@ -63,7 +34,57 @@ class GroupMember {
                 var avatarUrl = child.child('url').val().toString();
 
                 if (child.key != userID && groupList.includes(groupID)) {
-                    data.push({id: child.key, key: {lat: latitude, lon: longitude}, isHightlight: false, url: avatarUrl})
+                    data.push({id: child.key, url: avatarUrl})
+                }
+
+            })
+            
+            setFriendList(data)
+        })
+
+    }
+
+
+
+
+
+
+
+    static getGroupMembersLocation(setFriendPosListAndUser) {
+
+        userID = User.getCurrentUserId()
+        groupID = User.getCurrentGroupId()
+
+        if (groupID == "") return;
+
+        databaseRef.child('user').on('value', (snapshot) =>  { 
+
+            data = []
+            userData = {}
+            url = ""
+
+            userID = User.getCurrentUserId()
+            groupID = User.getCurrentGroupId()
+
+            if (groupID == "") return;
+        
+            snapshot.forEach((child) => {
+
+                //var id = child.key;
+                //var username = child.child('username').val().toString();
+                //var password = child.child('password').val().toString();
+                //var currentGroup = child.child('group').val().toString();
+                var groupList = child.child('grouplist').val().toString();
+                var latitude = child.child('latitude').val().toString();
+                var longitude = child.child('longitude').val().toString();
+                //var name = child.child('name').val().toString();
+                var avatarUrl = child.child('url').val().toString();
+                var hightlight = child.child('highlight').val();
+
+                //console.warn("Hightlight " + hightlight);
+
+                if (child.key != userID && groupList.includes(groupID)) {
+                    data.push({id: child.key, key: {lat: latitude, lon: longitude}, isHightlight: hightlight, url: avatarUrl})
                 }
 
                 if (child.key == userID) {
@@ -76,6 +97,8 @@ class GroupMember {
 
                 }
             })
+
+            console.warn("Daaaaata " + data);
             
             setFriendPosListAndUser(data, userData)
         })
@@ -134,6 +157,16 @@ class GroupMember {
             })
         })
 
+    }
+
+    static setHightlight(id) {
+
+        highlight = false
+        databaseRef.child('user').child(id).child('highlight').on('value', snapshot => {
+            highlight = snapshot.val()
+        })
+
+        databaseRef.child('user').child(id).child('highlight').set(!highlight)
     }
 
 

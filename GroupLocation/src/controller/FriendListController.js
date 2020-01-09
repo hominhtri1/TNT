@@ -22,11 +22,16 @@ class FriendListController extends Component {
         this.props.navigation.navigate('FriendProfile', {friendID: id});
     }
 
+    setHightlight = (id) => {
+        GroupMember.setHightlight(id);
+    }
+
     render() {
         return(
             <FriendList 
                 friendList={this.state.friendList}
                 gotoFriendProfile={this.gotoFriendProfile}
+                setHightlight={this.setHightlight}
                 />
         )
     }

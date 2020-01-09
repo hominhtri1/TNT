@@ -6,30 +6,26 @@ class Group {
     static getGroupList(setGroupList) {
 
         userID = User.getCurrentUserId()
-
         databaseRef.child('user').child(userID).child('grouplist').on('value', snapshot1 => {
-      
+
             databaseRef.child('group').on('value', (snapshot) => {
-              
-              var items = [];
-            
-              snapshot.forEach((child1) =>
-              {
-                //console.warn("GrouoList " + this.state.groupList)
+                
+            var items = [];
+                
+            snapshot.forEach((child1) => {
+                
                 if (snapshot1.val().toString().includes(child1.key)) {
-                  items.push({
-                    key: child1.key,
-                    name: child1.child('name').val().toString()
-                  })
+                    items.push({
+                        key: child1.key,
+                        name: child1.child('name').val().toString()
+                    })
                 }
-              })
-      
-              setGroupList(items)
+                
             })
-      
-          })
 
-
+          setGroupList(items)
+        })
+        })
     }
 
     static checkExitGroup(code, joinGroupFail, joinGroupSuccess) {

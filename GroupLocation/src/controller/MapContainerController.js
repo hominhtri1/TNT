@@ -46,7 +46,7 @@ class MapContrainerController extends Component {
     }
 
     gotoGroupProfile = () => {
-        console.warn("Only leader can have this")
+        this.props.navigation.navigate('GroupProfile')
     }
 
     render() {

@@ -93,14 +93,13 @@ class User {
                 databaseRef.child('user').push().set(
                 {
                     group: "",
-                    grouplist: [],
                     latitude: "",
                     longitude: "",
-                    grouplist: "",
                     password: pass,
                     username: user,
                     name: "",
-                    url: ""
+                    url: "",
+                    grouplist: []
                 });
                 
                 onSignupSuccess();
@@ -136,12 +135,25 @@ class User {
             {
                 if (member.val().toString() == this.currentUser.id) {
                     console.warn(member.val().toString());
-                    updates['/group/' + this.currentUser.currentGroup + '/member/' + this.currentUser.key] = null;
+                    updates['/group/' + this.currentUser.currentGroup + '/member/' + this.currentUser.id] = null;
                 }
             })
 
             databaseRef.update(updates);
             
+            
+
+            grouplist = ""
+            databaseRef.child('user').child(this.currentUser.id).child('grouplist').on('value', snapshot => {
+                grouplist = snapshot.val().toString()
+            })
+
+            grouplist = grouplist.replace(',' + this.currentUser.currentGroup,'')
+
+            console.warn("GL: " + grouplist)
+            
+            databaseRef.child('user').child(this.currentUser.id).child('grouplist').set(grouplist)
+        
             this.currentUser.currentGroup = ""
 
             console.warn('Left group');
@@ -171,17 +183,14 @@ class User {
             leader: personKey
         });
 
-        // add group for user
-        var value = ""
-    
-        databaseRef.child('user').child(personKey).child('grouplist').on('value', snapshot => {
-            value =  snapshot.val().toString()
-        });
+        group = ""
+        databaseRef.child('user').child(personKey).child('grouplist').once('value', snapshot => {
+            group = snapshot.val().toString();
+        })
 
-        databaseRef.child('user').child(personKey).child('grouplist').set(value + ',' + key)
+        databaseRef.child('user').child(personKey).child('grouplist').set(group + ',' + key)
 
         gotoNewGroup(code, key);
-
     }
 
     static getNewGroup(gotoNew, key) {
@@ -197,6 +206,10 @@ class User {
 
         gotoNewGroup();
         
+    }
+
+    static setGroupCode(code) {
+        this.currentUser.currentGroup = code;
     }
 
 }

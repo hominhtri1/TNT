@@ -111,10 +111,7 @@ class MyProfile extends React.Component {
                   
                   </Block>
                   <Block middle style={styles.nameInfo}>
-                    <Text bold size={20} color="Green">
-                      My Group
-                    </Text>
-                    
+                   
                   </Block>
                   <Block
                     row
@@ -127,27 +124,7 @@ class MyProfile extends React.Component {
  
                 
                   </Block>
-                  <Block center>
-                    <Button color="info" style={styles.button}>
-                      Group 1
-                    </Button>
-                  </Block>
-                  <Block center>
-                    <Button color="success" style={styles.button}>
-                    Group 2
-                    </Button>
-                  </Block>
-                  <Block center>
-                    <Button color="warning" style={styles.button}>
-                    Group AN CHOI
-                    </Button>
-                  </Block>
-                  <Block center>
-                    <Button color="error" style={styles.button}>
-                    Group Di Phuot
-                    </Button>
-                  </Block>
-    
+                  
 
                 </Block>
                 </Block>
